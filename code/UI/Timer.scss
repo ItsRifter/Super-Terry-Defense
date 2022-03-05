@@ -1,0 +1,15 @@
+﻿timer {
+    position: absolute;
+    font-family: Poppins;
+    font-size: 64px;
+    font-weight: 200;
+    color: white;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    top: 0px;
+
+    &.idle {
+        top: 65%;
+    }
+}

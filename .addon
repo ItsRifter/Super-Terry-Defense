@@ -1,0 +1,13 @@
+{
+  "Title": "Super TD",
+  "Type": "game",
+  "Org": "rifter",
+  "Ident": "super_td",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": null,
+  "HasCode": true,
+  "CodePath": "/code/",
+  "RootNamespace": "Sandbox"
+}

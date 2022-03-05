@@ -1,0 +1,147 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "purple.vmat"
+								to = "materials/towers/purple.vmat"
+							},
+							{
+								from = "stone.vmat"
+								to = "materials/towers/grey.vmat"
+							},
+							{
+								from = "stonedark.vmat"
+								to = "materials/towers/darkgrey.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsHullFromRender"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						faceMergeAngle = 20.0
+						maxHullVertices = 32
+					},
+				]
+			},
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						name = "right_top"
+						filename = "models/raw/towersquare_sampled.fbx"
+						import_translation = [ -15.0, 15.0, -12.5 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "right_bottom"
+						filename = "models/raw/towerSquare_sampleD.fbx"
+						import_translation = [ 15.0, 15.0, -12.5 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "left_bottom"
+						filename = "models/raw/towerSquare_sampleD.fbx"
+						import_translation = [ 15.0, -15.0, -12.5 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "left_top"
+						filename = "models/raw/towersquare_sampled.fbx"
+						import_translation = [ -15.0, -15.0, -12.5 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						name = "center"
+						filename = "models/raw/towersquare_samplec.fbx"
+						import_translation = [ 0.0, 0.0, -12.5 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.5
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+	}
+}
