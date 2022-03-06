@@ -8,17 +8,28 @@ public class HostileSpawner : Entity
 {
 	private TimeSince timeLastSpawn;
 
-	public int spawnCooldown = 5;
+	public int spawnCooldown;
 
-	public int spawnCount = 5;
-	public int baseSpawnCount = 5;
+	public int spawnCount;
+
+	private int index;
+
+	public List<WaveSetup> WaveSetters;
 
 	public List<TDNPCBase> aliveNPCs;
 
 	public override void Spawn()
 	{
 		base.Spawn();
+		index = -1;
 		aliveNPCs = new List<TDNPCBase>();
+		WaveSetters = new List<WaveSetup>();
+
+		foreach ( var logicEnt in All )
+		{
+			if ( logicEnt is WaveSetup waveSetter )
+				WaveSetters.Add( waveSetter );
+		}
 	}
 
 	[Event.Tick.Server]
@@ -28,17 +39,12 @@ public class HostileSpawner : Entity
 			return;
 
 		if ( spawnCount <= 0 && aliveNPCs.Count <= 0 )
-		{
-			baseSpawnCount *= 2;
-			spawnCount = baseSpawnCount;
-
 			TDGame.Current.EndWave();
-		}
 		else
 		{
 			if ( timeLastSpawn >= spawnCooldown && spawnCount > 0 )
 			{
-				var newNPC = new Zombie();
+				var newNPC = Library.Create<TDNPCBase>( WaveSetters[index].NPCs_To_Spawn.ToString());
 				newNPC.Position = Position;
 				newNPC.Rotation = Rotation;
 
@@ -47,6 +53,21 @@ public class HostileSpawner : Entity
 				timeLastSpawn = 0;
 			}
 		}
+	}
+
+	[Event( "td_new_wave" )]
+	public void UpdateSpawnerIndex()
+	{
+		index++;
+
+		if( (WaveSetters.Count - 1) < index )
+		{
+			Log.Error( "This wave is missing logic, Tell the map designer!" );
+			return;
+		}
+
+		spawnCount = WaveSetters[index].Spawn_Count;
+		spawnCooldown = WaveSetters[index].NPC_Spawn_Rate;
 	}
 
 	[Event("td_npckilled")]

@@ -14,6 +14,8 @@ public partial class TDNPCBase : AnimEntity
 	public virtual int maxCash => 2;
 	public virtual float NPCScale => 1;
 
+	public virtual float CastleDamage => 1;
+
 	private int cashReward = 0;
 
 	[ConVar.Replicated]
@@ -32,10 +34,12 @@ public partial class TDNPCBase : AnimEntity
 	public override void Spawn()
 	{ 
 		SetModel( BaseModel );
+
 		Scale = NPCScale;
 		Health = BaseHealth;
 
 		EnableHitboxes = true;
+		EnableAllCollisions = true;
 		SetupPhysicsFromModel( PhysicsMotionType.Static );
 
 		cashReward = Rand.Int( minCash, maxCash );
@@ -47,6 +51,7 @@ public partial class TDNPCBase : AnimEntity
 
 	public void Despawn()
 	{
+		Event.Run( "td_npckilled", this );
 		EnableDrawing = false;
 		Delete();
 	}
@@ -76,9 +81,9 @@ public partial class TDNPCBase : AnimEntity
 				Steer.Target = targetCastle.Position;
 
 			if( td_npc_drawoverlay )
-				DebugOverlay.Sphere( Position + Vector3.Down * 8, 22, Color.Red );
+				DebugOverlay.Sphere( Position + Vector3.Down * 8, 42, Color.Red );
 
-			foreach(var ent in FindInSphere(Position + Vector3.Down * 8, 22))
+			foreach(var ent in FindInSphere(Position + Vector3.Down * 8, 42))
 			{
 				if ( ent is Castle )
 					Despawn();

@@ -11,10 +11,11 @@ public partial class TDHUD : Sandbox.HudEntity<RootPanel>
 	public TDHUD()
 	{
 		RootPanel.AddChild<ChatBox>();
-		RootPanel.AddChild<NameTags>();
+		RootPanel.AddChild<NPCTag>();
 		RootPanel.AddChild<Scoreboard<ScoreboardEntry>>();
 
 		RootPanel.AddChild<Status>();
 		RootPanel.AddChild<Timer>();
+		RootPanel.AddChild<NPCTag>();
 	}
 }

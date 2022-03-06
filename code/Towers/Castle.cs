@@ -13,6 +13,13 @@ public partial class Castle : TowerBase
 	public override int MaxTier => 0;
 	public override int[] UpgradeCosts => new[] { 0 };
 
+	public int CastleHealth = 100;
+	public override void Spawn()
+	{
+		base.Spawn();
+		Health = CastleHealth;
+	}
+
 	public override void SimulateTower()
 	{
 
@@ -21,5 +28,11 @@ public partial class Castle : TowerBase
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
+	}
+
+	public override void OnKilled()
+	{
+		base.OnKilled();
+		TDGame.Current.EndGame();
 	}
 }

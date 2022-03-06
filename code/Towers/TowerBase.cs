@@ -80,9 +80,9 @@ public partial class TowerBase : AnimEntity
 		DebugOverlay.Sphere( previewModel.Position, AttackRange, Color.Blue );
 		bool isCollidingTower = false;
 
-		foreach ( var nearbyTower in FindInSphere( previewModel.Position, 26 ) )
+		foreach ( var nearbyTower in FindInSphere( previewModel.Position, 28 ) )
 		{
-			if( nearbyTower is TowerBase )
+			if( nearbyTower is TowerBase || tr.Entity is TowerBlocker )
 			{
 				isCollidingTower = true;
 			}

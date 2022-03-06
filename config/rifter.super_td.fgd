@@ -16,7 +16,7 @@
 //
 // CastleEntity
 //
-@PointClass base(BaseProperties_rifter_super_td) editormodel( "models/towers/castle/castle.vmdl" ) 
+@PointClass base(BaseProperties_rifter_super_td) editormodel( "models/towers/castle.vmdl" ) 
 metadata
 {
 	entity_tool_name = "Castle Base"
@@ -39,5 +39,59 @@ metadata
 }
 = info_supertd_npc_spawner : ""
 [
+]
+
+//
+// TowerBlocker
+//
+@SolidClass base(BaseProperties_rifter_super_td) tags( SupportsSolids, Dynamic ) 
+metadata
+{
+	entity_tool_name = "Tower Blocker"
+	entity_tool_group = "Super TD"
+	entity_tool_tip = "Prevents spawning of towers"
+}
+= supertd_tower_blocker : ""
+[
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	enabled(boolean) : "Enabled" : 1 : "Whether this func_brush is visible/active at all"
+	solid(boolean) : "Solid" : 1 : "Whether this func_brush has collisions"
+	health(float) : "Health" : 0 : "If set to above 0, the entity will have this much health on spawn and will be breakable."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
+	input DisableSolid(void) : "Make this func_brush non solid"
+	input EnableSolid(void) : "Make this func_brush solid"
+	input ToggleSolid(void) : "Toggle solidity of this func_brush"
+	input Enable(void) : "Enable this func_brush, making it visible"
+	input Disable(void) : "Disable this func_brush, making it invisible and non solid"
+	input Toggle(void) : "Toggle this func_brush"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnDamaged(void) : "Fired when the entity gets damaged, even if it is unbreakable."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
+]
+
+//
+// WaveSetup
+//
+@PointClass base(BaseProperties_rifter_super_td) tags( SupportsSolids, Logic ) 
+metadata
+{
+	entity_tool_name = "Wave Setup"
+	entity_tool_group = "Super TD"
+	entity_tool_tip = "Sets up the wave"
+}
+= supertd_wave_setup : ""
+[
+	spawncount(integer) : "Spawn Count" : 0 : "How many times should this spawn for that NPC"
+	npctospawn(choices) : "Npcs To Spawn" : 0 : "What NPC should this spawn" =
+	[
+		0 : "Unspecified"
+		1 : "Zombie"
+		2 : "Brute"
+		3 : "Zombie Boss"
+	]
+	npcspawnrate(integer) : "NPC Spawn Rate" : 0 : "How fast should this NPC spawn"
 ]
 

@@ -8,6 +8,7 @@ public partial class TDGame
 	[Net] public float WaveTimer { get; private set; }
 
 	private string curSoundtrack;
+
 	private Sound soundPlaying;
 
 	public enum WaveStatus
@@ -53,22 +54,29 @@ public partial class TDGame
 		CurWaveStatus = WaveStatus.Active;
 		CurWave++;
 
-		curSoundtrack = "music_" + Rand.Int( 1, 1 );
-		soundPlaying = Sound.FromScreen( curSoundtrack );
+		Event.Run( "td_new_wave" );
+
+		curSoundtrack = "music_" + Rand.Int( 1, 2 );
+		PlayMusicClient( To.Everyone, curSoundtrack );
+	}
+
+
+	[ClientRpc]
+	public void PlayMusicClient(string soundtrack)
+	{
+		soundPlaying.Stop();
+		soundPlaying = Sound.FromScreen( soundtrack );
 	}
 
 	public void EndWave()
 	{
-		soundPlaying.Stop();
-
 		if ( CurWave >= MaxWave )
 			EndGame( true );
 		else
 		{
 			WaveTimer = 40.0f + Time.Now;
 			CurWaveStatus = WaveStatus.Waiting;
-			
-			Sound.FromScreen( curSoundtrack + "_end" );
+			PlayMusicClient( To.Everyone, curSoundtrack + "_end" );
 		}
 	}
 
@@ -84,15 +92,6 @@ public partial class TDGame
 			if( CurWaveStatus == WaveStatus.Waiting )
 				if ( (WaveTimer - Time.Now) <= 0 )
 					StartWave();
-
-			if ( CurWaveStatus == WaveStatus.Active )
-			{
-				if ( soundPlaying.Finished )
-					soundPlaying = Sound.FromScreen( curSoundtrack );
-			} else
-			{
-				soundPlaying.Stop();
-			}
 		}
 	}
 

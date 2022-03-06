@@ -68,23 +68,24 @@ partial class TDPlayer : Player
 		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 150 )
 				.Ignore( this )
 				.Ignore( curTower )
+				.Size( 2 )
 				.Run();
 
 		if ( curTower != null )
 			curTower.UpdatePreview( tr );
 
-		var nearbyTowers = FindInSphere( tr.EndPosition, 26 );
-		bool isNearTower = false;
+		var nearbyTowers = FindInSphere( tr.EndPosition, 28 );
+		bool badSpot = false;
 
-		foreach ( var tower in nearbyTowers )
+		foreach ( var nearby in nearbyTowers )
 		{
-			if ( tower is TowerBase )
-				isNearTower = true;
+			if ( nearby is TowerBase || tr.Entity is TowerBlocker )
+				badSpot = true;
 		}
 
 		if (Input.Pressed(InputButton.Attack1) && curTower != null )
 		{
-			if ( tr.Entity != null && tr.Entity.GetType().ToString().Contains( "WorldEntity" ) && !isNearTower )
+			if ( tr.Entity != null && tr.Entity.GetType().ToString().Contains( "WorldEntity" ) && !badSpot )
 			{
 				if(tr.Normal.z == 1 && curTower.CanAfford(this))
 				{
@@ -135,6 +136,32 @@ partial class TDPlayer : Player
 			Log.Info( "Assigned SMG tower" );
 
 			curTower.CreatePreviews( tr );
+		}
+
+		if ( Input.Pressed( InputButton.Slot3 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "ExplosiveTower" ) )
+		{
+			curTower.DestoryPreview();
+
+			curTower = Library.Create<TowerBase>( "ExplosiveTower" );
+			Log.Info( "Assigned Explosive tower" );
+
+			curTower.CreatePreviews( tr );
+		}
+		else if ( Input.Pressed( InputButton.Slot3 ) && curTower == null )
+		{
+			curTower = Library.Create<TowerBase>( "ExplosiveTower" );
+			Log.Info( "Assigned Explosive tower" );
+
+			curTower.CreatePreviews( tr );
+		}
+
+		if(Input.Pressed(InputButton.Slot9))
+		{
+			if ( curTower != null )
+			{
+				curTower.DestoryPreview();
+				curTower.Delete();
+			}
 		}
 
 	}
