@@ -22,11 +22,15 @@ public partial class Timer : Panel
 
 		SetClass( "idle", TDGame.Current.CurGameStatus == TDGame.GameStatus.Idle );
 
-		if(TDGame.Current.CurGameStatus == TDGame.GameStatus.Active)
+		if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
 			if ( TDGame.Current.CurWaveStatus == TDGame.WaveStatus.Waiting )
 				timerLbl.SetText( "Wave starting in " + MathF.Round( TDGame.Current.WaveTimer - Time.Now ) );
 			else
 				timerLbl.SetText( "Wave: " + TDGame.Current.CurWave + "/" + TDGame.Current.MaxWave );
+		else if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Post )
+		{
+			timerLbl.SetText( "GAME OVER" ); 
+		}
 	}
 
 }

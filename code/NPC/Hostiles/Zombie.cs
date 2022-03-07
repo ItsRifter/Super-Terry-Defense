@@ -12,6 +12,7 @@ public partial class Zombie : TDNPCBase
 	public override int maxCash => 5;
 	public override float NPCScale => 0.35f;
 	public override float CastleDamage => 7;
+
 	public override void Spawn()
 	{
 		base.Spawn();		

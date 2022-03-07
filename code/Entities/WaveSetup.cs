@@ -16,6 +16,8 @@ public class WaveSetup : Entity
 		//Normal NPCs
 		Zombie,
 		Brute,
+		//Variant NPCs
+		Hidden,
 		//Boss NPCs
 		ZombieBoss,
 	}

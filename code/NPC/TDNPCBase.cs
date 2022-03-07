@@ -13,8 +13,16 @@ public partial class TDNPCBase : AnimEntity
 	public virtual int minCash => 1;
 	public virtual int maxCash => 2;
 	public virtual float NPCScale => 1;
-
 	public virtual float CastleDamage => 1;
+
+	public enum SpecialType
+	{
+		Standard,
+		Armoured,
+		Cloaked
+	}
+
+	public virtual SpecialType NPCType => SpecialType.Standard;
 
 	private int cashReward = 0;
 
@@ -51,6 +59,14 @@ public partial class TDNPCBase : AnimEntity
 
 	public void Despawn()
 	{
+		DamageInfo dmgInfo = new DamageInfo();
+		dmgInfo.Damage = CastleDamage;
+
+		targetCastle.TakeDamage( dmgInfo );
+
+		if ( targetCastle.Health <= 0 )
+			targetCastle = null;
+
 		Event.Run( "td_npckilled", this );
 		EnableDrawing = false;
 		Delete();
@@ -71,14 +87,17 @@ public partial class TDNPCBase : AnimEntity
 				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, BaseSpeed );
 			}
 
-			if ( targetCastle == null )
+			if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
 			{
-				foreach ( var ent in All )
-					if ( ent.Name.Contains( "Castle" ) )
-						targetCastle = ent;
-			}
-			else
+				if ( targetCastle == null )
+				{
+					foreach ( var ent in All )
+						if ( ent.Name.Contains( "Castle" ) )
+							targetCastle = ent;
+				}
+
 				Steer.Target = targetCastle.Position;
+			}
 
 			if( td_npc_drawoverlay )
 				DebugOverlay.Sphere( Position + Vector3.Down * 8, 42, Color.Red );

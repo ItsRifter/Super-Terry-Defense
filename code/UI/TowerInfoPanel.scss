@@ -1,0 +1,51 @@
+﻿towerinfopanel {
+    position: absolute;
+    opacity: 0;
+    bottom: 22.5%;
+    width: 27%;
+
+    .panelTower {
+        //background-image: url(ui/tower-panel.png);
+        //background-repeat: no-repeat;
+
+        width: 100%;
+        height: 312px;
+        background-color: deepskyblue;
+        flex-direction: column;
+
+        .title {
+            font-family: Poppins;
+            font-size: 48px;
+            color: white;
+        }
+
+
+        .desc {
+            font-family: Poppins;
+            font-size: 32px;
+            color: white;
+        }
+
+        .level {
+            font-family: Poppins;
+            font-size: 32px;
+            color: white;
+        }
+
+        .info {
+            font-family: Poppins;
+            font-size: 22px;
+            color: white;
+        }
+
+        .upgradeInfo {
+            font-family: Poppins;
+            font-size: 22px;
+            color: white;
+        }
+    }
+
+    &.isHovering {
+        opacity: 1;
+    }
+}

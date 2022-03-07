@@ -1,25 +1,25 @@
 ﻿using System;
 using Sandbox;
-
 public partial class TowerBase : AnimEntity
 {
 	public virtual string TowerName => "Base Tower";
 	public virtual string TowerDesc => "A base tower to derive towers from";
 	public virtual string TowerModel => "models/citizen_props/crate01.vmdl";
-	public virtual int AttackDamage => 1;
-	public virtual float AttackCooldown => 2;
-	public virtual int AttackRange => 1;
+	[Net] public int AttackDamage { get; set; }
+	[Net] public float AttackCooldown { get; set; }
+	[Net] public int AttackRange { get; set; }
 	public virtual int Cost => 1;
-	public virtual int Level => 0;
 	public virtual int MaxTier => 2;
+	public bool CanSeeCloaked { get; set; }
+	[Net] public int CurTier { get; private set; }
 
-	private int CurTier = 0;
-
-	private TowerBase previewModel;
-
+	[Net] public TowerBase previewModel { get; private set; }
 	private TimeSince lastAttack;
+	private float rotationFloat;
 
-	public virtual int[] UpgradeCosts => new[] { 2, 3, 4, 5 };
+	private TowerWorldPanel towerPanel;
+	[Net] public virtual int[] UpgradeCosts => new[] { 2, 3, 4, 5, 6 };
+	public virtual string[] UpgradeDesc => new[] { "[Input Info Here]" };
 
 	[ConVar.Replicated]
 	public static bool td_tower_drawoverlay { get; set; }
@@ -27,9 +27,13 @@ public partial class TowerBase : AnimEntity
 	public override void Spawn()
 	{
 		base.Spawn();
-
+		
+		CanSeeCloaked = false;
+		CurTier = 0;
+		rotationFloat = 0;
+		
 		SetModel( TowerModel );
-		CollisionGroup = CollisionGroup.Debris;
+		SetupPhysicsFromModel( PhysicsMotionType.Static );
 	}
 
 	[Event.Tick.Server]
@@ -39,8 +43,11 @@ public partial class TowerBase : AnimEntity
 
 		foreach ( var ent in ents )
 		{
-			if(ent is TDNPCBase npc)
+			if(ent is TDNPCBase npc )
 			{
+				if ( npc.NPCType == TDNPCBase.SpecialType.Cloaked && !CanSeeCloaked )
+					return;
+
 				if( lastAttack > AttackCooldown )
 				{
 					DamageInfo dmgInfo = new DamageInfo();
@@ -52,6 +59,12 @@ public partial class TowerBase : AnimEntity
 				}
 			}
 		}
+
+		if ( rotationFloat >= 360 )
+			rotationFloat = 0;
+
+		if ( Owner != null )
+			UpdateClientPanel( To.Single( Owner.Client ), this, rotationFloat += 1 );
 	}
 
 	public void CreatePreviews(TraceResult tr)
@@ -67,17 +80,52 @@ public partial class TowerBase : AnimEntity
 
 	public void DestoryPreview()
 	{
+		if ( previewModel == null )
+			return;
+
 		previewModel.Delete();
 		previewModel = null;
 	}
 
-	public void UpdatePreview(TraceResult tr)
+	[ClientRpc]
+	public void CreateClientPanel(TowerBase tower)
+	{
+		towerPanel = new TowerWorldPanel();
+		towerPanel.OwnerName.SetText( tower.Owner.Client.Name + "'s " + tower.TowerName);
+		towerPanel.Rotation = tower.Rotation;
+	}
+
+	[ClientRpc]
+	public void UpdateClientPanel( TowerBase tower, float rot )
+	{
+		towerPanel.Transform = tower.Transform;
+		towerPanel.Position = tower.Position - (Vector3.Up * 5 - tower.CollisionBounds.Center);
+		towerPanel.Rotation = Rotation.FromYaw( rot );
+		towerPanel.Level.SetText( "Level: " + tower.CurTier );
+
+
+	}
+
+	[ClientRpc]
+	public void DestroyClientPanel()
+	{
+		towerPanel.Delete();
+	}
+
+	public TowerBase GetPreview()
+	{
+		return previewModel;
+	}
+
+	public void UpdatePreview(TraceResult tr, TDPlayer placer)
 	{
 		if ( previewModel == null )
 			return;
 
 		previewModel.Position = tr.EndPosition;
-		DebugOverlay.Sphere( previewModel.Position, AttackRange, Color.Blue );
+
+		DebugOverlay.Sphere( previewModel.Position, AttackRange, new Color( 0, 0, 175, 0.5f ) );
+
 		bool isCollidingTower = false;
 
 		foreach ( var nearbyTower in FindInSphere( previewModel.Position, 28 ) )
@@ -111,7 +159,7 @@ public partial class TowerBase : AnimEntity
 
 	public bool CanUpgrade(TDPlayer upgrader)
 	{
-		if ( upgrader.CurMoney >= UpgradeCosts[CurTier] )
+		if ( CurTier < MaxTier && upgrader.CurMoney >= UpgradeCosts[CurTier] )
 			return true;
 		
 		return false;
@@ -120,11 +168,18 @@ public partial class TowerBase : AnimEntity
 	public virtual void UpgradeTower(TDPlayer upgrader)
 	{
 		upgrader.TakeMoney( UpgradeCosts[CurTier] );
+		OnUpgrade();
+	}
+
+	public virtual void OnUpgrade()
+	{
 		CurTier++;
 	}
 
 	public virtual void SellTower(TDPlayer seller)
 	{
-		seller.AddMoney( (int)MathF.Round( Cost / 2 ) );
+		seller.AddMoney( (int)MathF.Round( Cost / 2 * (CurTier + 1)) );
+		DestroyClientPanel( To.Single( seller ) );
+		Delete();
 	}
 }

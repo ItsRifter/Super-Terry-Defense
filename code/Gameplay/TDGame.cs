@@ -69,7 +69,23 @@ public partial class TDGame : Sandbox.Game
 
 		client.Pawn = player;
 
-		if(castle == null)
+		//Late joiners
+		if(CurGameStatus == GameStatus.Active)
+			player.InitStats();
+
+		if (castle == null)
 			SpawnCastle();
+	}
+
+	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	{
+
+		if ( cl.Pawn is TDPlayer player )
+			if ( player.curTower != null )
+			{
+				player.curTower.DestoryPreview();
+			}
+
+		base.ClientDisconnect( cl, reason );
 	}
 }

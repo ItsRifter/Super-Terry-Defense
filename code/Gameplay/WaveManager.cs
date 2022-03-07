@@ -4,7 +4,7 @@ using Sandbox;
 public partial class TDGame
 {
 	[Net] public int CurWave { get; private set; }
-	[Net] public int MaxWave { get; } = 30;
+	[Net] public int MaxWave { get; private set; }
 	[Net] public float WaveTimer { get; private set; }
 
 	private string curSoundtrack;
@@ -30,17 +30,40 @@ public partial class TDGame
 
 	public void InitGameplay()
 	{
-		CurWave = 0;
-		WaveTimer = 30.0f + Time.Now;
+		WaveTimer = 45.0f + Time.Now;
 		CurWaveStatus = WaveStatus.Idle;
 		CurGameStatus = GameStatus.Idle;
 	}
 
+	public override void PostLevelLoaded()
+	{
+		base.PostLevelLoaded();
+
+		int totalWaves = 0;
+
+		foreach ( var counter in All )
+		{
+			if ( counter is WaveSetup )
+				totalWaves++;
+		}
+
+		MaxWave = totalWaves;
+	}
+
+	[AdminCmd("td_restart")]
+	public static void RestartGameCMD()
+	{
+		Event.Run( "td_reset" );
+		Event.Run( "td_evnt_restart" );
+	}
+
+	[Event("td_evnt_restart")]
 	public void StartGame()
 	{
+		CurWave = 0;
 		CurGameStatus = GameStatus.Active;
 		CurWaveStatus = WaveStatus.Waiting;
-		WaveTimer = 40.0f + Time.Now;
+		WaveTimer = 30.0f + Time.Now;
 
 		foreach (var client in Client.All)
 		{
@@ -74,7 +97,7 @@ public partial class TDGame
 			EndGame( true );
 		else
 		{
-			WaveTimer = 40.0f + Time.Now;
+			WaveTimer = 30.0f + Time.Now;
 			CurWaveStatus = WaveStatus.Waiting;
 			PlayMusicClient( To.Everyone, curSoundtrack + "_end" );
 		}
@@ -97,6 +120,10 @@ public partial class TDGame
 
 	public void EndGame(bool playerWin = false)
 	{
+		if ( CurGameStatus != GameStatus.Active )
+			return;
+
+		CurGameStatus = GameStatus.Post;
 		Log.Info( "GAME OVER" );
 
 		if (playerWin)

@@ -1,0 +1,13 @@
+﻿towerworldpanel {
+    position: absolute;
+    font-family: Poppins;
+    font-size: 32px;
+    color: black;
+    justify-content: center;
+    align-content: center;
+
+    .levelText {
+        top: 30px;
+        right: 40%;
+    }
+}

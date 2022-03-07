@@ -4,10 +4,13 @@ using System.Linq;
 
 partial class TDPlayer : Player
 {
+
 	public Clothing.Container Clothing = new();
 
 	public TowerBase curTower;
 
+	private bool inUpgradeMode;
+	private bool inSellMode;
 	public TDPlayer()
 	{
 		
@@ -34,6 +37,9 @@ partial class TDPlayer : Player
 		EnableAllCollisions = false;
 
 		Clothing.DressEntity( this );
+
+		inUpgradeMode = false;
+		inSellMode = false;
 
 		base.Respawn();
 	}
@@ -72,7 +78,30 @@ partial class TDPlayer : Player
 				.Run();
 
 		if ( curTower != null )
-			curTower.UpdatePreview( tr );
+			curTower.UpdatePreview( tr, this );
+
+		if (inSellMode)
+		{
+			if ( tr.Entity is TowerBase tower && tr.Entity is not Castle )
+			{
+				if ( Input.Pressed( InputButton.Attack1 ) && tower.Owner == this )
+					tower.SellTower( this );
+			}
+
+		} else if (inUpgradeMode)
+		{
+			if ( tr.Entity is TowerBase tower && tr.Entity is not Castle )
+			{
+				if ( Input.Pressed( InputButton.Attack1 ) )
+				{
+					Log.Info( tower.CanUpgrade( this ) );
+
+					if ( tower.CanUpgrade( this ) )
+						tower.UpgradeTower( this );
+				}
+
+			}
+		}
 
 		var nearbyTowers = FindInSphere( tr.EndPosition, 28 );
 		bool badSpot = false;
@@ -92,16 +121,24 @@ partial class TDPlayer : Player
 					var newTower = Library.Create<TowerBase>( curTower.GetType().FullName );
 					newTower.Position = tr.EndPosition;
 					CurMoney -= curTower.Cost;
+					newTower.Owner = this;
+
+					newTower.CreateClientPanel(To.Single(this), newTower);
+
 				}
 			}
 		}
 
-		
-
-		if ( Input.Pressed( InputButton.Slot0 ) && curTower != null )
+		if ( Input.Pressed( InputButton.Slot0 ) )
 		{
-			curTower.DestoryPreview();
-			curTower = null;
+			if ( curTower != null )
+			{
+				curTower.DestoryPreview();
+				curTower = null;
+			}
+
+			inSellMode = false;
+			inUpgradeMode = false;
 		}
 
 		if (Input.Pressed(InputButton.Slot1) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "PistolTower" ) )
@@ -109,15 +146,17 @@ partial class TDPlayer : Player
 			curTower.DestoryPreview();
 
 			curTower = Library.Create<TowerBase>( "PistolTower" );
-			Log.Info( "Assigned Pistol tower" );
 
+			inUpgradeMode = false;
+			inSellMode = false;
 			curTower.CreatePreviews( tr );
 		} 
 		else if(Input.Pressed(InputButton.Slot1) && curTower == null)
 		{
 			curTower = Library.Create<TowerBase>( "PistolTower" );
-			Log.Info( "Assigned Pistol tower" );
 
+			inUpgradeMode = false;
+			inSellMode = false;
 			curTower.CreatePreviews(tr);
 		}
 
@@ -126,15 +165,17 @@ partial class TDPlayer : Player
 			curTower.DestoryPreview();
 
 			curTower = Library.Create<TowerBase>( "SMGTower" );
-			Log.Info( "Assigned SMG tower" );
 
+			inUpgradeMode = false;
+			inSellMode = false;
 			curTower.CreatePreviews( tr );
 		}
 		else if ( Input.Pressed( InputButton.Slot2 ) && curTower == null )
 		{
 			curTower = Library.Create<TowerBase>( "SMGTower" );
-			Log.Info( "Assigned SMG tower" );
 
+			inUpgradeMode = false;
+			inSellMode = false;
 			curTower.CreatePreviews( tr );
 		}
 
@@ -143,26 +184,45 @@ partial class TDPlayer : Player
 			curTower.DestoryPreview();
 
 			curTower = Library.Create<TowerBase>( "ExplosiveTower" );
-			Log.Info( "Assigned Explosive tower" );
 
+			inUpgradeMode = false;
+			inSellMode = false;
 			curTower.CreatePreviews( tr );
 		}
 		else if ( Input.Pressed( InputButton.Slot3 ) && curTower == null )
 		{
 			curTower = Library.Create<TowerBase>( "ExplosiveTower" );
-			Log.Info( "Assigned Explosive tower" );
 
+			inUpgradeMode = false;
+			inSellMode = false;
 			curTower.CreatePreviews( tr );
 		}
 
-		if(Input.Pressed(InputButton.Slot9))
+		if ( Input.Pressed( InputButton.Slot8 ) && !inUpgradeMode )
 		{
 			if ( curTower != null )
 			{
 				curTower.DestoryPreview();
-				curTower.Delete();
+				curTower = null;
 			}
+
+			inSellMode = false;
+			inUpgradeMode = true;
 		}
 
+		if (Input.Pressed(InputButton.Slot9) && !inSellMode )
+		{
+			if ( curTower != null )
+			{
+				curTower.DestoryPreview();
+				curTower = null;
+			}
+
+
+			inUpgradeMode = false;
+			inSellMode = true;
+		}
+		if( curTower != null )
+			curTower.Owner = this;
 	}
 }

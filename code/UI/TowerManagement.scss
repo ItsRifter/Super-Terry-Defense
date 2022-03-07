@@ -1,0 +1,42 @@
+﻿towermanagement {
+    position: absolute;
+    width: 100%;
+    bottom: 48px;
+    justify-content: center;
+    align-items: flex-end;
+
+    .slot-number {
+        font-size: 25px;
+        color: black;
+        font-weight: 900;
+        position: absolute;
+        right: 5px;
+        transition: all 0.1s ease-out;
+
+        &.hide {
+            opacity: 0;
+        }
+
+        &.active {
+            color: #fff;
+            opacity: 1;
+            bottom: 110px;
+        }
+    }
+
+    .slot-icon {
+        width: 92px;
+        height: 92px;
+        opacity: 0.75;
+        transition: all 0.1s ease-out;
+
+        &.hide {
+            opacity: 0;
+        }
+
+        &.active {
+            opacity: 1;
+            bottom: 50px;
+        }
+    }
+}

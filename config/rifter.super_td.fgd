@@ -90,7 +90,8 @@ metadata
 		0 : "Unspecified"
 		1 : "Zombie"
 		2 : "Brute"
-		3 : "Zombie Boss"
+		3 : "Hidden"
+		4 : "Zombie Boss"
 	]
 	npcspawnrate(integer) : "NPC Spawn Rate" : 0 : "How fast should this NPC spawn"
 ]

@@ -58,7 +58,8 @@ public class HostileSpawner : Entity
 	[Event( "td_new_wave" )]
 	public void UpdateSpawnerIndex()
 	{
-		index++;
+		if( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
+			index++;
 
 		if( (WaveSetters.Count - 1) < index )
 		{
@@ -68,6 +69,12 @@ public class HostileSpawner : Entity
 
 		spawnCount = WaveSetters[index].Spawn_Count;
 		spawnCooldown = WaveSetters[index].NPC_Spawn_Rate;
+	}
+
+	[Event("td_reset")]
+	public void ResetIndex()
+	{
+		index = 0;
 	}
 
 	[Event("td_npckilled")]
