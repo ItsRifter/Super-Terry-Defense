@@ -8,7 +8,7 @@ public partial class PistolTower : TowerBase
 	public override string TowerModel => "models/towers/pistol.vmdl";
 	public override int Cost => 10;
 	public override int MaxTier => 5;
-	public override int[] UpgradeCosts => new[] { 5, 10, 25, 50, 100, 0 };
+	public override int[] UpgradeCosts => new[] { 15, 20, 30, 50, 100, 0 };
 
 	public override string[] UpgradeDesc => new[] { 
 		"1+ DMG, 15+ Range, +0.5 FireRate", 
@@ -28,13 +28,17 @@ public partial class PistolTower : TowerBase
 		AttackCooldown = 3;
 	}
 
+	public override void AttackNPC( TDNPCBase npc )
+	{
+		base.AttackNPC( npc );
+	}
+
 	public override void SimulateTower()
 	{
 		base.SimulateTower();
 
 		if( td_tower_drawoverlay )
 			DebugOverlay.Sphere( Position, AttackRange, Color.Green );
-
 	}
 
 	public override void OnUpgrade()
@@ -47,10 +51,5 @@ public partial class PistolTower : TowerBase
 
 		if(CurTier == 3)
 			CanSeeCloaked = true;
-	}
-
-	public override void TakeDamage( DamageInfo info )
-	{
-		base.TakeDamage( info );
 	}
 }

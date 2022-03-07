@@ -79,7 +79,6 @@ public partial class TDGame : Sandbox.Game
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
 	{
-
 		if ( cl.Pawn is TDPlayer player )
 			if ( player.curTower != null )
 			{

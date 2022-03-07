@@ -23,7 +23,7 @@ partial class TDPlayer : Player
 
 	public override void Spawn()
 	{
-		base.Spawn();
+		base.Respawn();
 
 		SetModel( "models/citizen/citizen.vmdl" );
 
@@ -40,13 +40,10 @@ partial class TDPlayer : Player
 
 		inUpgradeMode = false;
 		inSellMode = false;
-
-		base.Respawn();
 	}
 
 	public override void Simulate( Client cl )
 	{
-
 		SimulateActiveChild( cl, ActiveChild );
 
 		if (TDGame.Current.CurGameStatus == TDGame.GameStatus.Active)
@@ -71,6 +68,40 @@ partial class TDPlayer : Player
 		if ( IsClient )
 			return;
 
+		SelectingTowers();
+
+		if ( !inSellMode && !inUpgradeMode )
+			return;
+
+		var targetTr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 150 )
+			.Ignore( this )
+			.Size( 2 )
+			.Run();
+
+		if (inSellMode)
+		{
+			if ( targetTr.Entity is TowerBase tower && targetTr.Entity is not Castle )
+			{
+				if ( Input.Pressed( InputButton.Attack1 ) && tower.Owner == this )
+					tower.SellTower( this );
+			}
+
+		} else if (inUpgradeMode)
+		{
+			if ( targetTr.Entity is TowerBase tower && targetTr.Entity is not Castle )
+			{
+				if ( Input.Pressed( InputButton.Attack1 ) )
+				{
+					if ( tower.CanUpgrade( this ) )
+						tower.UpgradeTower( this );
+				}
+
+			}
+		}
+	}
+
+	private void SelectingTowers()
+	{
 		var tr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 150 )
 				.Ignore( this )
 				.Ignore( curTower )
@@ -79,29 +110,6 @@ partial class TDPlayer : Player
 
 		if ( curTower != null )
 			curTower.UpdatePreview( tr, this );
-
-		if (inSellMode)
-		{
-			if ( tr.Entity is TowerBase tower && tr.Entity is not Castle )
-			{
-				if ( Input.Pressed( InputButton.Attack1 ) && tower.Owner == this )
-					tower.SellTower( this );
-			}
-
-		} else if (inUpgradeMode)
-		{
-			if ( tr.Entity is TowerBase tower && tr.Entity is not Castle )
-			{
-				if ( Input.Pressed( InputButton.Attack1 ) )
-				{
-					Log.Info( tower.CanUpgrade( this ) );
-
-					if ( tower.CanUpgrade( this ) )
-						tower.UpgradeTower( this );
-				}
-
-			}
-		}
 
 		var nearbyTowers = FindInSphere( tr.EndPosition, 28 );
 		bool badSpot = false;
@@ -112,36 +120,25 @@ partial class TDPlayer : Player
 				badSpot = true;
 		}
 
-		if (Input.Pressed(InputButton.Attack1) && curTower != null )
+		if ( Input.Pressed( InputButton.Attack1 ) && curTower != null )
 		{
 			if ( tr.Entity != null && tr.Entity.GetType().ToString().Contains( "WorldEntity" ) && !badSpot )
 			{
-				if(tr.Normal.z == 1 && curTower.CanAfford(this))
+				if ( tr.Normal.z == 1 && curTower.CanAfford( this ) )
 				{
 					var newTower = Library.Create<TowerBase>( curTower.GetType().FullName );
 					newTower.Position = tr.EndPosition;
 					CurMoney -= curTower.Cost;
 					newTower.Owner = this;
 
-					newTower.CreateClientPanel(To.Single(this), newTower);
+					newTower.CreateClientPanel( To.Everyone, newTower );
 
 				}
 			}
 		}
 
-		if ( Input.Pressed( InputButton.Slot0 ) )
-		{
-			if ( curTower != null )
-			{
-				curTower.DestoryPreview();
-				curTower = null;
-			}
-
-			inSellMode = false;
-			inUpgradeMode = false;
-		}
-
-		if (Input.Pressed(InputButton.Slot1) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "PistolTower" ) )
+		//Pistol
+		if ( Input.Pressed( InputButton.Slot1 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "PistolTower" ) )
 		{
 			curTower.DestoryPreview();
 
@@ -150,16 +147,17 @@ partial class TDPlayer : Player
 			inUpgradeMode = false;
 			inSellMode = false;
 			curTower.CreatePreviews( tr );
-		} 
-		else if(Input.Pressed(InputButton.Slot1) && curTower == null)
+		}
+		else if ( Input.Pressed( InputButton.Slot1 ) && curTower == null )
 		{
 			curTower = Library.Create<TowerBase>( "PistolTower" );
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews(tr);
+			curTower.CreatePreviews( tr );
 		}
 
+		//SMG
 		if ( Input.Pressed( InputButton.Slot2 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "SMGTower" ) )
 		{
 			curTower.DestoryPreview();
@@ -179,6 +177,7 @@ partial class TDPlayer : Player
 			curTower.CreatePreviews( tr );
 		}
 
+		//Explosive
 		if ( Input.Pressed( InputButton.Slot3 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "ExplosiveTower" ) )
 		{
 			curTower.DestoryPreview();
@@ -198,6 +197,66 @@ partial class TDPlayer : Player
 			curTower.CreatePreviews( tr );
 		}
 
+		//Electric
+		if ( Input.Pressed( InputButton.Slot4 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "ElectricTower" ) )
+		{
+			curTower.DestoryPreview();
+
+			curTower = Library.Create<TowerBase>( "ElectricTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr );
+		}
+		else if ( Input.Pressed( InputButton.Slot4 ) && curTower == null )
+		{
+			curTower = Library.Create<TowerBase>( "ElectricTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr );
+		}
+
+		//Radar
+		if ( Input.Pressed( InputButton.Slot5 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "RadarTower" ) )
+		{
+			curTower.DestoryPreview();
+
+			curTower = Library.Create<TowerBase>( "RadarTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr );
+		}
+		else if ( Input.Pressed( InputButton.Slot5 ) && curTower == null )
+		{
+			curTower = Library.Create<TowerBase>( "RadarTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr );
+		}
+
+		//Sniper
+		if ( Input.Pressed( InputButton.Slot6 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "SniperTower" ) )
+		{
+			curTower.DestoryPreview();
+
+			curTower = Library.Create<TowerBase>( "SniperTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr );
+		}
+		else if ( Input.Pressed( InputButton.Slot6 ) && curTower == null )
+		{
+			curTower = Library.Create<TowerBase>( "SniperTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr );
+		}
+
 		if ( Input.Pressed( InputButton.Slot8 ) && !inUpgradeMode )
 		{
 			if ( curTower != null )
@@ -210,7 +269,7 @@ partial class TDPlayer : Player
 			inUpgradeMode = true;
 		}
 
-		if (Input.Pressed(InputButton.Slot9) && !inSellMode )
+		if ( Input.Pressed( InputButton.Slot9 ) && !inSellMode )
 		{
 			if ( curTower != null )
 			{
@@ -218,11 +277,23 @@ partial class TDPlayer : Player
 				curTower = null;
 			}
 
-
 			inUpgradeMode = false;
 			inSellMode = true;
 		}
-		if( curTower != null )
+
+		if ( Input.Pressed( InputButton.Slot0 ) )
+		{
+			if ( curTower != null )
+			{
+				curTower.DestoryPreview();
+				curTower = null;
+			}
+
+			inSellMode = false;
+			inUpgradeMode = false;
+		}
+
+		if ( curTower != null )
 			curTower.Owner = this;
 	}
 }

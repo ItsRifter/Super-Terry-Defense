@@ -84,14 +84,18 @@ metadata
 }
 = supertd_wave_setup : ""
 [
+	waveorder(integer) : "Wave Order" : 0 : "What order should this go?"
 	spawncount(integer) : "Spawn Count" : 0 : "How many times should this spawn for that NPC"
 	npctospawn(choices) : "Npcs To Spawn" : 0 : "What NPC should this spawn" =
 	[
 		0 : "Unspecified"
-		1 : "Zombie"
-		2 : "Brute"
-		3 : "Hidden"
-		4 : "Zombie Boss"
+		1 : "Peasant"
+		2 : "Zombie"
+		3 : "Brute"
+		4 : "Rebel"
+		5 : "Hidden"
+		6 : "Zombie Boss"
+		7 : "Void King"
 	]
 	npcspawnrate(integer) : "NPC Spawn Rate" : 0 : "How fast should this NPC spawn"
 ]

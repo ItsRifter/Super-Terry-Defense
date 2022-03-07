@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Sandbox;
 
 public partial class TDGame
@@ -53,13 +54,32 @@ public partial class TDGame
 	[AdminCmd("td_restart")]
 	public static void RestartGameCMD()
 	{
-		Event.Run( "td_reset" );
 		Event.Run( "td_evnt_restart" );
+
+		foreach(var ents in All)
+		{
+			if ( ents is TDNPCBase npc )
+				npc.Delete();
+
+			if ( ents is TowerBase tower )
+			{
+				tower.DestroyClientPanel( To.Everyone );
+				tower.Delete();
+			}
+		}
+
+		var castleSpawn = All.OfType<CastleEntity>().FirstOrDefault();
+
+		var castle = new Castle();
+
+		castle.Position = castleSpawn.Position;
+		castle.Rotation = castleSpawn.Rotation;
 	}
 
 	[Event("td_evnt_restart")]
 	public void StartGame()
 	{
+		StopMusicClient( To.Everyone );
 		CurWave = 0;
 		CurGameStatus = GameStatus.Active;
 		CurWaveStatus = WaveStatus.Waiting;
@@ -83,6 +103,11 @@ public partial class TDGame
 		PlayMusicClient( To.Everyone, curSoundtrack );
 	}
 
+	[ClientRpc]
+	public void StopMusicClient()
+	{
+		soundPlaying.Stop();
+	}
 
 	[ClientRpc]
 	public void PlayMusicClient(string soundtrack)
@@ -128,9 +153,12 @@ public partial class TDGame
 
 		if (playerWin)
 		{
+			PlayMusicClient( To.Everyone, "music_win" );
 			Log.Info( "Players successfully defended the castle" );
-		} else
+		} 
+		else
 		{
+			PlayMusicClient( To.Everyone, "music_lost" );
 			Log.Info( "Castle destroyed, Players have lost" );
 		}
 	}

@@ -12,8 +12,6 @@ public class HostileSpawner : Entity
 
 	public int spawnCount;
 
-	private int index;
-
 	public List<WaveSetup> WaveSetters;
 
 	public List<TDNPCBase> aliveNPCs;
@@ -21,7 +19,6 @@ public class HostileSpawner : Entity
 	public override void Spawn()
 	{
 		base.Spawn();
-		index = -1;
 		aliveNPCs = new List<TDNPCBase>();
 		WaveSetters = new List<WaveSetup>();
 
@@ -44,7 +41,7 @@ public class HostileSpawner : Entity
 		{
 			if ( timeLastSpawn >= spawnCooldown && spawnCount > 0 )
 			{
-				var newNPC = Library.Create<TDNPCBase>( WaveSetters[index].NPCs_To_Spawn.ToString());
+				var newNPC = Library.Create<TDNPCBase>( WaveSetters[TDGame.Current.CurWave - 1].NPCs_To_Spawn.ToString());
 				newNPC.Position = Position;
 				newNPC.Rotation = Rotation;
 
@@ -58,23 +55,20 @@ public class HostileSpawner : Entity
 	[Event( "td_new_wave" )]
 	public void UpdateSpawnerIndex()
 	{
-		if( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
-			index++;
-
-		if( (WaveSetters.Count - 1) < index )
+		for ( int i = 0; i < WaveSetters.Count; i++ )
 		{
-			Log.Error( "This wave is missing logic, Tell the map designer!" );
-			return;
+			if( WaveSetters[i].Wave_Order == TDGame.Current.CurWave )
+			{
+				spawnCount = WaveSetters[i].Spawn_Count;
+				spawnCooldown = WaveSetters[i].NPC_Spawn_Rate;
+			}
 		}
-
-		spawnCount = WaveSetters[index].Spawn_Count;
-		spawnCooldown = WaveSetters[index].NPC_Spawn_Rate;
 	}
-
-	[Event("td_reset")]
-	public void ResetIndex()
+	[Event( "td_evnt_restart" )]
+	public void ClearNPCs()
 	{
-		index = 0;
+		aliveNPCs.Clear();
+		spawnCount = 0;
 	}
 
 	[Event("td_npckilled")]

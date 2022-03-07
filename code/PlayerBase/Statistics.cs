@@ -8,7 +8,7 @@ public partial class TDPlayer
 
 	public void InitStats()
 	{
-		CurMoney = 30;
+		CurMoney = 20;
 	}
 
 	[Event("td_evnt_givemoney")]

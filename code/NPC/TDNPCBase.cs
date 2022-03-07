@@ -47,10 +47,10 @@ public partial class TDNPCBase : AnimEntity
 		Health = BaseHealth;
 
 		EnableHitboxes = true;
-		EnableAllCollisions = true;
-		SetupPhysicsFromModel( PhysicsMotionType.Static );
 
 		cashReward = Rand.Int( minCash, maxCash );
+
+		Tags.Add( "NPC" );
 
 		SetBodyGroup( 1, 0 );
 
@@ -92,7 +92,7 @@ public partial class TDNPCBase : AnimEntity
 				if ( targetCastle == null )
 				{
 					foreach ( var ent in All )
-						if ( ent.Name.Contains( "Castle" ) )
+						if ( ent is Castle )
 							targetCastle = ent;
 				}
 

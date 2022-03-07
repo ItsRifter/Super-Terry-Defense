@@ -8,6 +8,10 @@ public partial class TowerManagement : Panel
 {
 	readonly List<TowerIcon> slots = new();
 	private int iconIndex;
+
+	public Panel TowerPanel;
+	public Label TowerInfo;
+
 	public TowerManagement()
 	{
 		iconIndex = 10;
@@ -17,6 +21,11 @@ public partial class TowerManagement : Panel
 			var icon = new TowerIcon( i + 1, this );
 			slots.Add( icon );
 		}
+
+		TowerPanel = Add.Panel("panel");
+		TowerInfo = TowerPanel.Add.Label( "???", "pnlInfo" );
+
+		TowerPanel.SetClass( "hide", true );
 	}
 
 	public override void Tick()
@@ -45,6 +54,7 @@ public partial class TowerManagement : Panel
 			towerIcon.SetClass( "hide", false );
 			towerKey.SetClass( "hide", false );
 		}
+
 		towerIcon.SetClass( "active", iconIndex == (curIndex + 1) );
 		towerKey.SetClass( "active", iconIndex == (curIndex + 1) );
 
@@ -74,11 +84,39 @@ public partial class TowerManagement : Panel
 
 	private void SetActiveSlot(int i)
 	{
-		var player = Local.Pawn as TDPlayer;
-
-		if ( player == null )
-			return;
-
 		iconIndex = i;
+
+		TowerPanel.SetClass( "hide", iconIndex == 10 );
+
+		switch ( iconIndex )
+		{
+			case 1:
+				TowerInfo.SetText( "Pistol Tower\nCosts 10 Coins" );
+				break;
+			case 2:
+				TowerInfo.SetText( "SMG Tower\nCosts 25 Coins" );
+				break;
+			case 3:
+				TowerInfo.SetText( "Cannon Tower\nCosts 40 Coins" );
+				break;
+			case 4:
+				TowerInfo.SetText( "Electric Tower\nCosts 65 Coins" );
+				break;
+			case 5:
+				TowerInfo.SetText( "Radar Tower\nCosts 50 Coins" );
+				break;
+			case 6:
+				TowerInfo.SetText( "Sniper Tower\nCosts 75 Coins" );
+				break;
+			case 7:
+				TowerInfo.SetText( "Get rifter to add a new unique tower" );
+				break;
+			case 8:
+				TowerInfo.SetText( "Upgrades target tower" );
+				break;
+			case 9:
+				TowerInfo.SetText( "Sells target tower" );
+				break;
+		}	
 	}
 }

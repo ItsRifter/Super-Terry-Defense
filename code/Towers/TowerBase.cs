@@ -18,6 +18,9 @@ public partial class TowerBase : AnimEntity
 	private float rotationFloat;
 
 	private TowerWorldPanel towerPanel;
+
+	public bool RadarEnhanced;
+
 	[Net] public virtual int[] UpgradeCosts => new[] { 2, 3, 4, 5, 6 };
 	public virtual string[] UpgradeDesc => new[] { "[Input Info Here]" };
 
@@ -26,14 +29,27 @@ public partial class TowerBase : AnimEntity
 
 	public override void Spawn()
 	{
-		base.Spawn();
-		
+		SetModel( TowerModel );
+
+		EnableHitboxes = true;
+
+		RadarEnhanced = false;
 		CanSeeCloaked = false;
 		CurTier = 0;
 		rotationFloat = 0;
-		
-		SetModel( TowerModel );
-		SetupPhysicsFromModel( PhysicsMotionType.Static );
+
+		Tags.Add("Tower");
+		SetupPhysicsFromModel( PhysicsMotionType.Invalid );
+	}
+
+	public virtual void AttackNPC(TDNPCBase npc)
+	{
+		DamageInfo dmgInfo = new DamageInfo();
+		dmgInfo.Damage = AttackDamage;
+
+		npc.TakeDamage( dmgInfo );
+
+		lastAttack = 0;
 	}
 
 	[Event.Tick.Server]
@@ -43,20 +59,13 @@ public partial class TowerBase : AnimEntity
 
 		foreach ( var ent in ents )
 		{
-			if(ent is TDNPCBase npc )
+			if( ent is TDNPCBase npc )
 			{
 				if ( npc.NPCType == TDNPCBase.SpecialType.Cloaked && !CanSeeCloaked )
 					return;
 
-				if( lastAttack > AttackCooldown )
-				{
-					DamageInfo dmgInfo = new DamageInfo();
-					dmgInfo.Damage = AttackDamage;
-
-					npc.TakeDamage( dmgInfo );
-
-					lastAttack = 0;
-				}
+				if ( lastAttack > AttackCooldown )
+					AttackNPC( npc );
 			}
 		}
 
@@ -64,7 +73,7 @@ public partial class TowerBase : AnimEntity
 			rotationFloat = 0;
 
 		if ( Owner != null )
-			UpdateClientPanel( To.Single( Owner.Client ), this, rotationFloat += 1 );
+			UpdateClientPanel( To.Everyone, this, rotationFloat += 1 );
 	}
 
 	public void CreatePreviews(TraceResult tr)
@@ -72,6 +81,8 @@ public partial class TowerBase : AnimEntity
 		Delete();
 		previewModel = Library.Create<TowerBase>( "TowerBase" );
 		previewModel.SetModel( TowerModel );
+
+		previewModel.Tags.Add( "Tower" );
 
 		previewModel.EnableAllCollisions = false;
 
@@ -102,14 +113,13 @@ public partial class TowerBase : AnimEntity
 		towerPanel.Position = tower.Position - (Vector3.Up * 5 - tower.CollisionBounds.Center);
 		towerPanel.Rotation = Rotation.FromYaw( rot );
 		towerPanel.Level.SetText( "Level: " + tower.CurTier );
-
-
 	}
 
 	[ClientRpc]
 	public void DestroyClientPanel()
 	{
-		towerPanel.Delete();
+		if(towerPanel != null)
+			towerPanel.Delete();
 	}
 
 	public TowerBase GetPreview()
@@ -179,7 +189,7 @@ public partial class TowerBase : AnimEntity
 	public virtual void SellTower(TDPlayer seller)
 	{
 		seller.AddMoney( (int)MathF.Round( Cost / 2 * (CurTier + 1)) );
-		DestroyClientPanel( To.Single( seller ) );
+		DestroyClientPanel( To.Everyone );
 		Delete();
 	}
 }

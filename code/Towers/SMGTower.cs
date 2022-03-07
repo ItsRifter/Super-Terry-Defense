@@ -13,7 +13,7 @@ public partial class SMGTower : TowerBase
 */
 	public override int Cost => 25;
 	public override int MaxTier => 5;
-	public override int[] UpgradeCosts => new[] { 5, 10, 25, 50, 100, 0 };
+	public override int[] UpgradeCosts => new[] { 35, 55, 85, 100, 140, 0 };
 
 	public override string[] UpgradeDesc => new[] { 
 		"2+ DMG, 10+ Range, +0.25 FireRate",
@@ -29,7 +29,7 @@ public partial class SMGTower : TowerBase
 		base.Spawn();
 
 		AttackRange = 65;
-		AttackDamage = 4;
+		AttackDamage = 1;
 		AttackCooldown = 1.75f;
 	}
 

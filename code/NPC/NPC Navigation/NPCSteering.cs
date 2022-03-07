@@ -25,11 +25,11 @@ public class NPCSteering
 	
 		Output.Direction = Path.GetDirection( currentPosition );
 
-		var avoid = GetAvoidance( currentPosition, 500 );
+		/*var avoid = GetAvoidance( currentPosition, 500 );
 		if ( !avoid.IsNearlyZero() )
 		{
 			Output.Direction = (Output.Direction + avoid).Normal;
-		}
+		}*/
 	}
 
 	Vector3 GetAvoidance( Vector3 position, float radius )

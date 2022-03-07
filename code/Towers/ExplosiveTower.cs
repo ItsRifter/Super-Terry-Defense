@@ -7,19 +7,15 @@ public partial class ExplosiveTower : TowerBase
 	public override string TowerDesc => "A tower that fires explosive cannons";
 	public override string TowerModel => "models/towers/explosive.vmdl";
 
-/*	
-	public override int AttackDamage => 15;
-	public override float AttackCooldown => 0.45f;
-	public override int AttackRange => 75;
-*/
-	public override int Cost => 50;
+	private int ExplosiveRange;
+	public override int Cost => 40;
 	public override int MaxTier => 4;
-	public override int[] UpgradeCosts => new[] { 15, 30, 55, 85, 0 };
+	public override int[] UpgradeCosts => new[] { 40, 55, 85, 125, 0 };
 	public override string[] UpgradeDesc => new[] {
-		"5+ DMG, 5+ Range, +0.1 FireRate",
-		"5+ DMG, 5+ Range, +0.1 FireRate",
-		"5+ DMG, 5+ Range, +0.1 FireRate",
-		"5+ DMG, 5+ Range, +0.1 FireRate",
+		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
+		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
+		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
+		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
 		"MAX LEVEL REACHED"
 	};
 
@@ -29,7 +25,24 @@ public partial class ExplosiveTower : TowerBase
 
 		AttackRange = 75;
 		AttackDamage = 15;
-		AttackCooldown = 0.45f;
+		AttackCooldown = 3.25f;
+		ExplosiveRange = 48;
+	}
+
+	public override void AttackNPC( TDNPCBase npc )
+	{
+		base.AttackNPC( npc );
+
+		foreach ( var ent in FindInSphere(npc.Position, ExplosiveRange ) )
+		{
+			if ( ent is TDNPCBase nearbyNPC )
+			{
+				DamageInfo dmgInfo = new DamageInfo();
+				dmgInfo.Damage = AttackDamage;
+
+				nearbyNPC.TakeDamage( dmgInfo );
+			}	
+		}
 	}
 
 	public override void OnUpgrade()
@@ -38,7 +51,8 @@ public partial class ExplosiveTower : TowerBase
 
 		AttackRange += 5;
 		AttackDamage += 5;
-		AttackCooldown -= 0.1f;
+		AttackCooldown -= 0.35f;
+		ExplosiveRange += 12;
 	}
 
 	public override void SimulateTower()
@@ -47,10 +61,5 @@ public partial class ExplosiveTower : TowerBase
 
 		if( td_tower_drawoverlay )
 			DebugOverlay.Sphere( Position, AttackRange, Color.Green );
-	}
-
-	public override void TakeDamage( DamageInfo info )
-	{
-		base.TakeDamage( info );
 	}
 }
