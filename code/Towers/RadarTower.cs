@@ -16,7 +16,6 @@ public partial class RadarTower : TowerBase
 		"Nearby towers get 5+ DMG, +25 Range",
 		"Nearby towers get 10+ DMG, +25 Range",
 		"Nearby towers get 15+ DMG, +25 Range",
-		"Nearby towers get 20+ DMG, +25 Range",
 		"MAX LEVEL REACHED"
 	};
 

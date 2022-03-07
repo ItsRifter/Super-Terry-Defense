@@ -4,7 +4,7 @@ using Sandbox;
 public partial class ZombieBoss : TDNPCBase
 {
 	public override string NPCName => "Zombie Boss";
-	public override int BaseHealth => 100;
+	public override int BaseHealth => 150;
 	public override float BaseSpeed => 15;
 	public override string BaseModel => "models/citizen/citizen.vmdl";
 	public override int minCash => 25;

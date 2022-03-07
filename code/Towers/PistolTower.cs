@@ -24,7 +24,7 @@ public partial class PistolTower : TowerBase
 		base.Spawn();
 
 		AttackRange = 75;
-		AttackDamage = 2;
+		AttackDamage = 5;
 		AttackCooldown = 3;
 	}
 

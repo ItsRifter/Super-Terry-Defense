@@ -5,7 +5,7 @@ using System.Linq;
 public partial class Zombie : TDNPCBase
 {
 	public override string NPCName => "Zombie";
-	public override int BaseHealth => 30;
+	public override int BaseHealth => 45;
 	public override float BaseSpeed => 10;
 	public override string BaseModel => "models/citizen/citizen.vmdl";
 	public override int minCash => 5;

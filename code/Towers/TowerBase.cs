@@ -109,6 +109,9 @@ public partial class TowerBase : AnimEntity
 	[ClientRpc]
 	public void UpdateClientPanel( TowerBase tower, float rot )
 	{
+		if ( tower == null || towerPanel == null )
+			return;
+
 		towerPanel.Transform = tower.Transform;
 		towerPanel.Position = tower.Position - (Vector3.Up * 5 - tower.CollisionBounds.Center);
 		towerPanel.Rotation = Rotation.FromYaw( rot );

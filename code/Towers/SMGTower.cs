@@ -29,7 +29,7 @@ public partial class SMGTower : TowerBase
 		base.Spawn();
 
 		AttackRange = 65;
-		AttackDamage = 1;
+		AttackDamage = 2;
 		AttackCooldown = 1.75f;
 	}
 
