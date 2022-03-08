@@ -21,7 +21,9 @@ public class NPCTagBase : Panel
 	{
 		base.Tick();
 
-		NameLabel.SetText( $"{npc.NPCName + "\nHP: " + npc.Health}" );
+		if(Local.Pawn is TDPlayer player)
+
+		NameLabel.SetText( $"{player.Translate(ConsoleSystem.GetValue("td_currentlanguage"), npc.NPCName) + npc.Health}" );
 	}
 }
 

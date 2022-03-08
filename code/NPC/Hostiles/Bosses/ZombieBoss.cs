@@ -15,6 +15,10 @@ public partial class ZombieBoss : TDNPCBase
 	public override void Spawn()
 	{
 		base.Spawn();
+		
+		var clothing = new ModelEntity();
+		clothing.SetModel( "models/citizen_clothes/jacket/labcoat.vmdl_c" );
+		clothing.SetParent( this, true );
 
 		RenderColor = new Color(0, 100, 0);
 	}

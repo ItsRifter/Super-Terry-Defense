@@ -72,8 +72,14 @@ public partial class TowerBase : AnimEntity
 		if ( rotationFloat >= 360 )
 			rotationFloat = 0;
 
-		if ( Owner != null )
-			UpdateClientPanel( To.Everyone, this, rotationFloat += 1 );
+		if ( Owner != null && Owner is TDPlayer player )
+		{
+			UpdateClientPanel( To.Everyone, this, rotationFloat += 1, player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), TowerName ), player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Level" ) );
+		} else
+		{
+			DestroyClientPanel();
+			Delete();
+		}
 	}
 
 	public void CreatePreviews(TraceResult tr, TDPlayer player)
@@ -130,15 +136,15 @@ public partial class TowerBase : AnimEntity
 	}
 
 	[ClientRpc]
-	public void CreateClientPanel(TowerBase tower)
+	public void CreateClientPanel(TowerBase tower, string towerTranslate)
 	{
 		towerPanel = new TowerWorldPanel();
-		towerPanel.OwnerName.SetText( tower.Owner.Client.Name + "'s " + tower.TowerName);
+		towerPanel.OwnerName.SetText( tower.Owner.Client.Name + "'s " + towerTranslate );
 		towerPanel.Rotation = tower.Rotation;
 	}
 
 	[ClientRpc]
-	public void UpdateClientPanel( TowerBase tower, float rot )
+	public void UpdateClientPanel( TowerBase tower, float rot, string towerTranslate, string lvlTranslate )
 	{
 		if ( tower == null || towerPanel == null )
 			return;
@@ -146,7 +152,8 @@ public partial class TowerBase : AnimEntity
 		towerPanel.Transform = tower.Transform;
 		towerPanel.Position = tower.Position - (Vector3.Up * 5 - tower.CollisionBounds.Center);
 		towerPanel.Rotation = Rotation.FromYaw( rot );
-		towerPanel.Level.SetText( "Level: " + tower.CurTier );
+		towerPanel.OwnerName.SetText( tower.Owner.Client.Name + "'s " + towerTranslate );
+		towerPanel.Level.SetText( lvlTranslate + tower.CurTier );
 	}
 
 	[ClientRpc]

@@ -15,5 +15,6 @@ public partial class TowerWorldPanel : WorldPanel
 	public override void Tick()
 	{
 		base.Tick();
+
 	}
 }

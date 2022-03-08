@@ -23,7 +23,7 @@ public partial class Status : Panel
 
 		if(Local.Pawn is TDPlayer player)
 		{
-			curCashLbl.SetText( "Coins: " + player.CurMoney );
+			curCashLbl.SetText( player.Translate(ConsoleSystem.GetValue( "td_currentlanguage" ), "Stat_Coins" ) + player.CurMoney );
 		}
 	}
 }

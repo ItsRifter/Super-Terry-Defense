@@ -21,6 +21,8 @@ public class WaveSetup : Entity
 		Zombie,
 		Brute,
 		Rebel,
+		Rioter,
+		Voidling,
 		//Variant NPCs
 		Hidden,
 		//Boss NPCs

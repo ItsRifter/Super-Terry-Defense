@@ -35,7 +35,7 @@ public partial class ExplosiveTower : TowerBase
 
 		foreach ( var ent in FindInSphere(npc.Position, ExplosiveRange ) )
 		{
-			if ( ent is TDNPCBase nearbyNPC )
+			if ( ent is TDNPCBase nearbyNPC && nearbyNPC != npc )
 			{
 				DamageInfo dmgInfo = new DamageInfo();
 				dmgInfo.Damage = AttackDamage;

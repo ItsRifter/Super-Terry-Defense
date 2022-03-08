@@ -11,7 +11,7 @@ public partial class TDGame : Sandbox.Game
 {
 	private Castle castle;
 	private TDHUD oldHud;
-
+	
 	public static new TDGame Current => Sandbox.Game.Current as TDGame;
 
 	public List<LeaderboardResult.Entry> leaderboard;
@@ -25,7 +25,7 @@ public partial class TDGame : Sandbox.Game
 		if ( IsClient )
 			oldHud = new TDHUD();
 	}
-	
+
 	[Event.Hotload]
 	public void UpdateHUD()
 	{
@@ -74,8 +74,13 @@ public partial class TDGame : Sandbox.Game
 		client.Pawn = player;
 
 		//Late joiners
-		if(CurGameStatus == GameStatus.Active)
+		if ( CurGameStatus == GameStatus.Active )
+		{
 			player.InitStats();
+
+			if ( CurWave > 3 )
+				player.lateJoiner = true;
+		}
 
 		if (castle == null)
 			SpawnCastle();

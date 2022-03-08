@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using Sandbox;
-
 public partial class TDGame
 {
 	[Net] public int CurWave { get; private set; }
@@ -158,12 +158,15 @@ public partial class TDGame
 		if ( CurGameStatus != GameStatus.Active )
 			return;
 
-		if(IsServer)
+		if ( IsServer )
 			foreach ( var client in Client.All)
 			{
+				if ( client.Pawn is TDPlayer player && player.lateJoiner )
+					break;
+
 				foreach ( var leader in leaderboard )
 				{
-					if(leader.DisplayName == client.Name)
+					if ( leader.DisplayName == client.Name )
 						GameServices.SubmitScore( client.PlayerId, leader.Rating + CurWave );
 					else
 						GameServices.SubmitScore( client.PlayerId, CurWave );

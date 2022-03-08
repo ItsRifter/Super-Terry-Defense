@@ -15,6 +15,10 @@ public partial class Rebel : TDNPCBase
 
 	public override void Spawn()
 	{
-		base.Spawn();		
+		base.Spawn();
+		
+		var clothing = new ModelEntity();
+		clothing.SetModel( "models/citizen_clothes/vest/Tactical_Vest/Models/tactical_vest.vmdl" );
+		clothing.SetParent( this, true );
 	}
 }

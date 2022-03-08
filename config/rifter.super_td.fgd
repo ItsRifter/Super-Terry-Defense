@@ -93,9 +93,11 @@ metadata
 		2 : "Zombie"
 		3 : "Brute"
 		4 : "Rebel"
-		5 : "Hidden"
-		6 : "Zombie Boss"
-		7 : "Void King"
+		5 : "Rioter"
+		6 : "Voidling"
+		7 : "Hidden"
+		8 : "Zombie Boss"
+		9 : "Void King"
 	]
 	npcspawnrate(integer) : "NPC Spawn Rate" : 0 : "How fast should this NPC spawn"
 ]

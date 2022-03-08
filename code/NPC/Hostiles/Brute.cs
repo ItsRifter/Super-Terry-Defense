@@ -14,8 +14,10 @@ public partial class Brute : TDNPCBase
 	public override float CastleDamage => 9;
 	public override void Spawn()
 	{
-		base.Spawn();		
+		base.Spawn();
 
-		RenderColor = Color.Orange;
+		var clothing = new ModelEntity();
+		clothing.SetModel( "models/citizen_clothes/hat/Balaclava/Models/balaclava.vmdl" );
+		clothing.SetParent( this, true );
 	}
 }
