@@ -11,7 +11,7 @@ public partial class Peasant : TDNPCBase
 	public override int minCash => 3;
 	public override int maxCash => 6;
 	public override float NPCScale => 0.35f;
-	public override float CastleDamage => 2;
+	public override float CastleDamage => 5;
 
 	public override void Spawn()
 	{

@@ -12,10 +12,10 @@ public partial class ElectricTower : TowerBase
 
 	private int ShockTargets;
 
-	public override string[] UpgradeDesc => new[] { 
-		"5+ DMG, 15+ Range, +0.75 FireRate, +1 Shock Targets",
-		"5+ DMG, 15+ Range, +0.75 FireRate, +1 Shock Targets",
-		"5+ DMG, 15+ Range, +0.75 FireRate, +1 Shock Targets",
+	public override string[] UpgradeDesc => new[] {
+		"+5 DMG, +15 Range, +0.75 FireRate, +1 Shock Targets",
+		"+5 DMG, +15 Range, +0.75 FireRate, +1 Shock Targets",
+		"+5 DMG, +15 Range, +0.75 FireRate, +1 Shock Targets",
 		"MAX LEVEL REACHED"
 	};
 

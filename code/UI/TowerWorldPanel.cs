@@ -11,4 +11,9 @@ public partial class TowerWorldPanel : WorldPanel
 		OwnerName = Add.Label( "" );
 		Level = Add.Label( "Level: ", "levelText" );
 	}
+
+	public override void Tick()
+	{
+		base.Tick();
+	}
 }

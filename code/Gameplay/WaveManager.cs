@@ -76,20 +76,24 @@ public partial class TDGame
 		castle.Rotation = castleSpawn.Rotation;
 	}
 
-	[Event("td_evnt_restart")]
-	public void StartGame()
+	[Event( "td_evnt_restart" )]
+	public async void StartGame()
 	{
 		StopMusicClient( To.Everyone );
 		CurWave = 0;
 		CurGameStatus = GameStatus.Active;
 		CurWaveStatus = WaveStatus.Waiting;
-		WaveTimer = 30.0f + Time.Now;
+		WaveTimer = 20.0f + Time.Now;
 
-		foreach (var client in Client.All)
+		foreach ( var client in Client.All )
 		{
 			if ( client.Pawn is TDPlayer player )
 				player.InitStats();
 		}
+
+		var q = await GameServices.Leaderboard.Query( Global.GameIdent );
+		var sorted = q.Entries.OrderBy( x => x.Rating ).Where( x => x.Rating > 0 ).ToList();
+		leaderboard = sorted;
 	}
 
 	public void StartWave()
@@ -122,7 +126,7 @@ public partial class TDGame
 			EndGame( true );
 		else
 		{
-			WaveTimer = 30.0f + Time.Now;
+			WaveTimer = 20.0f + Time.Now;
 			CurWaveStatus = WaveStatus.Waiting;
 			PlayMusicClient( To.Everyone, curSoundtrack + "_end" );
 		}
@@ -143,10 +147,28 @@ public partial class TDGame
 		}
 	}
 
+	[AdminCmd("td_endgame")]
+	public static void EndGameCMD()
+	{
+		Current.EndGame();
+	}
+
 	public void EndGame(bool playerWin = false)
 	{
 		if ( CurGameStatus != GameStatus.Active )
 			return;
+
+		if(IsServer)
+			foreach ( var client in Client.All)
+			{
+				foreach ( var leader in leaderboard )
+				{
+					if(leader.DisplayName == client.Name)
+						GameServices.SubmitScore( client.PlayerId, leader.Rating + CurWave );
+					else
+						GameServices.SubmitScore( client.PlayerId, CurWave );
+				}
+			}
 
 		CurGameStatus = GameStatus.Post;
 		Log.Info( "GAME OVER" );
@@ -161,5 +183,7 @@ public partial class TDGame
 			PlayMusicClient( To.Everyone, "music_lost" );
 			Log.Info( "Castle destroyed, Players have lost" );
 		}
+
+		GameServices.EndGame();
 	}
 }

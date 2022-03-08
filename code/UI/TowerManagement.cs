@@ -109,7 +109,7 @@ public partial class TowerManagement : Panel
 				TowerInfo.SetText( "Sniper Tower\nCosts 75 Coins" );
 				break;
 			case 7:
-				TowerInfo.SetText( "Get rifter to add a new unique tower" );
+				TowerInfo.SetText( "Frost Tower\nCosts 45 Coins" );
 				break;
 			case 8:
 				TowerInfo.SetText( "Upgrades target tower" );

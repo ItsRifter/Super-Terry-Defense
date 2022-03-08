@@ -11,7 +11,7 @@ public partial class Hidden : TDNPCBase
 	public override int minCash => 7;
 	public override int maxCash => 13;
 	public override float NPCScale => 0.35f;
-	public override float CastleDamage => 6;
+	public override float CastleDamage => 7;
 	public override SpecialType NPCType => SpecialType.Cloaked; 
 	public override void Spawn()
 	{

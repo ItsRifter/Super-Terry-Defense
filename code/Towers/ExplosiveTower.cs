@@ -12,10 +12,10 @@ public partial class ExplosiveTower : TowerBase
 	public override int MaxTier => 4;
 	public override int[] UpgradeCosts => new[] { 40, 55, 85, 125, 0 };
 	public override string[] UpgradeDesc => new[] {
-		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
-		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
-		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
-		"5+ DMG, 5+ Range, +0.35 FireRate, +12 Explosive Range",
+		"+5 DMG, +5 Range, +0.35 FireRate, +12 Explosive Range",
+		"+5 DMG, +5 Range, +0.35 FireRate, +12 Explosive Range",
+		"+5 DMG, +5 Range, +0.35 FireRate, +12 Explosive Range",
+		"+5 DMG, +5 Range, +0.35 FireRate, +12 Explosive Range",
 		"MAX LEVEL REACHED"
 	};
 

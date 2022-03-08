@@ -11,10 +11,10 @@ public partial class SniperTower : TowerBase
 	public override int[] UpgradeCosts => new[] { 85, 115, 145, 195, 0 };
 
 	public override string[] UpgradeDesc => new[] { 
-		"5+ DMG, +0.5 FireRate", 
-		"5+ DMG, +0.5 FireRate, Can see cloaked enemies",
-		"5+ DMG, +0.5 FireRate",
-		"5+ DMG, +0.5 FireRate",
+		"+5 DMG, +0.5 FireRate", 
+		"+5 DMG, +0.5 FireRate, Can see cloaked enemies",
+		"+5 DMG, +0.5 FireRate",
+		"+5 DMG, +0.5 FireRate",
 		"MAX LEVEL REACHED"
 	};
 

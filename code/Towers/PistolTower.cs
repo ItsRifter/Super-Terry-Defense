@@ -10,12 +10,12 @@ public partial class PistolTower : TowerBase
 	public override int MaxTier => 5;
 	public override int[] UpgradeCosts => new[] { 15, 20, 30, 50, 100, 0 };
 
-	public override string[] UpgradeDesc => new[] { 
-		"1+ DMG, 15+ Range, +0.5 FireRate", 
-		"1+ DMG, 15+ Range, +0.5 FireRate",
-		"1+ DMG, 15+ Range, +0.5 FireRate, Can see cloaked enemies",
-		"1+ DMG, 15+ Range, +0.5 FireRate",
-		"1+ DMG, 15+ Range, +0.5 FireRate",
+	public override string[] UpgradeDesc => new[] {
+		"+1 DMG, +15 Range, +0.5 FireRate",
+		"+1 DMG, +15 Range, +0.5 FireRate",
+		"+1 DMG, +15 Range, +0.5 FireRate, Can see cloaked enemies",
+		"+1 DMG, +15 Range, +0.5 FireRate",
+		"+1 DMG, +15 Range, +0.5 FireRate",
 		"MAX LEVEL REACHED"
 	};
 

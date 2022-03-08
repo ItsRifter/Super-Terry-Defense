@@ -6,12 +6,12 @@ public partial class Zombie : TDNPCBase
 {
 	public override string NPCName => "Zombie";
 	public override int BaseHealth => 45;
-	public override float BaseSpeed => 10;
+	public override float BaseSpeed => 7;
 	public override string BaseModel => "models/citizen/citizen.vmdl";
 	public override int minCash => 5;
 	public override int maxCash => 12;
 	public override float NPCScale => 0.35f;
-	public override float CastleDamage => 7;
+	public override float CastleDamage => 10;
 
 	public override void Spawn()
 	{

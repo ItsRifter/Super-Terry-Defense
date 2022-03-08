@@ -16,11 +16,11 @@ public partial class SMGTower : TowerBase
 	public override int[] UpgradeCosts => new[] { 35, 55, 85, 100, 140, 0 };
 
 	public override string[] UpgradeDesc => new[] { 
-		"2+ DMG, 10+ Range, +0.25 FireRate",
-		"2+ DMG, 10+ Range, +0.25 FireRate",
-		"2+ DMG, 10+ Range, +0.25 FireRate",
-		"2+ DMG, 10+ Range, +0.25 FireRate",
-		"2+ DMG, 10+ Range, +0.25 FireRate",
+		"+2 DMG, +10 Range, +0.25 FireRate",
+		"+2 DMG, +10 Range, +0.25 FireRate",
+		"+2 DMG, +10 Range, +0.25 FireRate",
+		"+2 DMG, +10 Range, +0.25 FireRate",
+		"+2 DMG, +10 Range, +0.25 FireRate",
 		"MAX LEVEL REACHED"
 	};
 

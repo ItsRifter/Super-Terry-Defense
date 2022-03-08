@@ -6,7 +6,7 @@ Layer0
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
-	g_vColorTint "[0.933333 0.909804 0.666667 1.000000]"
+	g_vColorTint "[1.000000 1.000000 0.000000 1.000000]"
 	TextureColor "materials/default/default_color.tga"
 
 	//---- Fade ----

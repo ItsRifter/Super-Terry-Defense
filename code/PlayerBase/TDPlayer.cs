@@ -146,7 +146,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 		else if ( Input.Pressed( InputButton.Slot1 ) && curTower == null )
 		{
@@ -154,7 +154,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 
 		//SMG
@@ -166,7 +166,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 		else if ( Input.Pressed( InputButton.Slot2 ) && curTower == null )
 		{
@@ -174,7 +174,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 
 		//Explosive
@@ -186,7 +186,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 		else if ( Input.Pressed( InputButton.Slot3 ) && curTower == null )
 		{
@@ -194,7 +194,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 
 		//Electric
@@ -206,7 +206,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 		else if ( Input.Pressed( InputButton.Slot4 ) && curTower == null )
 		{
@@ -214,7 +214,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 
 		//Radar
@@ -226,7 +226,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 		else if ( Input.Pressed( InputButton.Slot5 ) && curTower == null )
 		{
@@ -234,7 +234,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 
 		//Sniper
@@ -246,7 +246,7 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
 		}
 		else if ( Input.Pressed( InputButton.Slot6 ) && curTower == null )
 		{
@@ -254,7 +254,27 @@ partial class TDPlayer : Player
 
 			inUpgradeMode = false;
 			inSellMode = false;
-			curTower.CreatePreviews( tr );
+			curTower.CreatePreviews( tr, this );
+		}
+
+		//Frost
+		if ( Input.Pressed( InputButton.Slot7 ) && curTower != null && curTower.GetType() != Library.Get<TowerBase>( "FrostTower" ) )
+		{
+			curTower.DestoryPreview();
+
+			curTower = Library.Create<TowerBase>( "FrostTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr, this );
+		}
+		else if ( Input.Pressed( InputButton.Slot7 ) && curTower == null )
+		{
+			curTower = Library.Create<TowerBase>( "FrostTower" );
+
+			inUpgradeMode = false;
+			inSellMode = false;
+			curTower.CreatePreviews( tr, this );
 		}
 
 		if ( Input.Pressed( InputButton.Slot8 ) && !inUpgradeMode )

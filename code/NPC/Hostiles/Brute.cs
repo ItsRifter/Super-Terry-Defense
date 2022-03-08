@@ -11,7 +11,7 @@ public partial class Brute : TDNPCBase
 	public override int minCash => 4;
 	public override int maxCash => 9;
 	public override float NPCScale => 0.35f;
-	public override float CastleDamage => 5;
+	public override float CastleDamage => 9;
 	public override void Spawn()
 	{
 		base.Spawn();		

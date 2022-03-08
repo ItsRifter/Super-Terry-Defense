@@ -9,7 +9,9 @@ public partial class TDNPCBase : AnimEntity
 	public virtual string NPCName => "Default NPC";
 	public virtual string BaseModel => "models/citizen/citizen.vmdl";
 	public virtual int BaseHealth => 1;
-	public virtual float BaseSpeed => 1;
+	public virtual float BaseSpeed { get; set; } = 1;
+
+	public TimeSince lastFrozen;
 	public virtual int minCash => 1;
 	public virtual int maxCash => 2;
 	public virtual float NPCScale => 1;
@@ -72,10 +74,15 @@ public partial class TDNPCBase : AnimEntity
 		Delete();
 	}
 
+	public void Freeze()
+	{
+		lastFrozen = 0;
+	}
+
 	[Event.Tick.Server]
 	public void Tick()
 	{
-		InputVelocity = 0;
+		InputVelocity = 0;		
 
 		if ( Steer != null )
 		{
@@ -84,8 +91,11 @@ public partial class TDNPCBase : AnimEntity
 			if ( !Steer.Output.Finished )
 			{
 				InputVelocity = Steer.Output.Direction.Normal;
-				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, BaseSpeed );
+				Velocity = Velocity.AddClamped( InputVelocity * Time.Delta * 500, BaseSpeed * 1.5f );
 			}
+
+			if ( lastFrozen <= 4.5f )
+				Velocity /= 3;
 
 			if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
 			{
@@ -125,10 +135,7 @@ public partial class TDNPCBase : AnimEntity
 		animHelper.WithLookAt( EyePosition + LookDir );
 		animHelper.WithVelocity( Velocity );
 		animHelper.WithWishVelocity( InputVelocity );
-
-		
 	}
-
 	protected virtual void Move( float timeDelta )
 	{
 		var bbox = BBox.FromHeightAndRadius( 64, 4 );
@@ -153,7 +160,7 @@ public partial class TDNPCBase : AnimEntity
 			{
 				move.Position = tr.EndPosition;
 			}
-
+			
 			if ( InputVelocity.Length > 0 )
 			{
 				var movement = move.Velocity.Dot( InputVelocity.Normal );
@@ -162,14 +169,11 @@ public partial class TDNPCBase : AnimEntity
 				move.Velocity += movement * InputVelocity.Normal;
 
 				NPCDebugDraw.Once.Line( tr.StartPosition, tr.EndPosition );
-
 			}
 			else
 			{
 				move.ApplyFriction( tr.Surface.Friction * 10.0f, timeDelta );
 			}
-
-			
 		}
 		else
 		{
@@ -189,12 +193,10 @@ public partial class TDNPCBase : AnimEntity
 		Rotation = Input.Rotation;
 		EyeRotation = Rotation;
 
-		var maxSpeed = 500;
+		Velocity += Input.Rotation * new Vector3( Input.Forward, Input.Left, Input.Up ) * BaseSpeed * 5 * Time.Delta;
+		if ( Velocity.Length > BaseSpeed ) Velocity = Velocity.Normal * BaseSpeed;
 
-		Velocity += Input.Rotation * new Vector3( Input.Forward, Input.Left, Input.Up ) * maxSpeed * 5 * Time.Delta;
-		if ( Velocity.Length > maxSpeed ) Velocity = Velocity.Normal * maxSpeed;
-
-		Velocity = Velocity.Approach( 0, Time.Delta * maxSpeed * 3 );
+		Velocity = Velocity.Approach( 0, Time.Delta * BaseSpeed * 3 );
 
 		Position += Velocity * Time.Delta;
 

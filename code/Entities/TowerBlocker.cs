@@ -6,7 +6,6 @@
 [Hammer.RenderFields]
 public class TowerBlocker : BrushEntity
 {
-	[Event.Hotload]
 	public override void Spawn()
 	{
 		EnableDrawing = false;

@@ -11,7 +11,7 @@ public partial class Voidling : TDNPCBase
 	public override int minCash => 12;
 	public override int maxCash => 20;
 	public override float NPCScale => 0.30f;
-	public override float CastleDamage => 10;
+	public override float CastleDamage => 15;
 
 	public override void Spawn()
 	{

@@ -76,7 +76,7 @@ public partial class TowerBase : AnimEntity
 			UpdateClientPanel( To.Everyone, this, rotationFloat += 1 );
 	}
 
-	public void CreatePreviews(TraceResult tr)
+	public void CreatePreviews(TraceResult tr, TDPlayer player)
 	{
 		Delete();
 		previewModel = Library.Create<TowerBase>( "TowerBase" );
@@ -85,8 +85,39 @@ public partial class TowerBase : AnimEntity
 		previewModel.Tags.Add( "Tower" );
 
 		previewModel.EnableAllCollisions = false;
+		previewModel.Owner = player;
+		previewModel.Position = tr.EndPosition;
+	}
+
+	public void UpdatePreview( TraceResult tr, TDPlayer placer )
+	{
+		if ( previewModel == null )
+			return;
 
 		previewModel.Position = tr.EndPosition;
+
+		DebugOverlay.Sphere( previewModel.Position, AttackRange, new Color( 0, 0, 175, 0.5f ) );
+
+		bool isCollidingTower = false;
+
+		foreach ( var nearbyTower in FindInSphere( previewModel.Position, 28 ) )
+		{
+			if ( nearbyTower is TowerBase || tr.Entity is TowerBlocker )
+			{
+				isCollidingTower = true;
+			}
+		}
+
+		if ( tr.Normal.z == 1 && !isCollidingTower )
+		{
+			previewModel.RenderColor = Color.Green;
+		}
+		else
+		{
+			previewModel.RenderColor = Color.Red;
+		}
+
+		previewModel.RenderColor = previewModel.RenderColor.WithAlpha( 0.5f );
 	}
 
 	public void DestoryPreview()
@@ -128,38 +159,6 @@ public partial class TowerBase : AnimEntity
 	public TowerBase GetPreview()
 	{
 		return previewModel;
-	}
-
-	public void UpdatePreview(TraceResult tr, TDPlayer placer)
-	{
-		if ( previewModel == null )
-			return;
-
-		previewModel.Position = tr.EndPosition;
-
-		DebugOverlay.Sphere( previewModel.Position, AttackRange, new Color( 0, 0, 175, 0.5f ) );
-
-		bool isCollidingTower = false;
-
-		foreach ( var nearbyTower in FindInSphere( previewModel.Position, 28 ) )
-		{
-			if( nearbyTower is TowerBase || tr.Entity is TowerBlocker )
-			{
-				isCollidingTower = true;
-			}
-		}
-
-		if (tr.Normal.z == 1 && !isCollidingTower )
-		{
-			previewModel.RenderColor = Color.Green;
-		} else
-		{
-			previewModel.RenderColor = Color.Red;
-		}
-
-		previewModel.RenderColor = previewModel.RenderColor.WithAlpha( 0.5f );
-
-
 	}
 
 	public bool CanAfford( TDPlayer buyer )

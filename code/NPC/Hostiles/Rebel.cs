@@ -11,7 +11,7 @@ public partial class Rebel : TDNPCBase
 	public override int minCash => 8;
 	public override int maxCash => 19;
 	public override float NPCScale => 0.35f;
-	public override float CastleDamage => 12;
+	public override float CastleDamage => 13;
 
 	public override void Spawn()
 	{

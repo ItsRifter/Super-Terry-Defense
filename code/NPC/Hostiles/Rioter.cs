@@ -11,7 +11,7 @@ public partial class Rioter : TDNPCBase
 	public override int minCash => 8;
 	public override int maxCash => 12;
 	public override float NPCScale => 0.40f;
-	public override float CastleDamage => 7;
+	public override float CastleDamage => 15;
 	public override void Spawn()
 	{
 		base.Spawn();		

@@ -2,6 +2,7 @@
 using Sandbox;
 using Sandbox.UI.Construct;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,11 +14,14 @@ public partial class TDGame : Sandbox.Game
 
 	public static new TDGame Current => Sandbox.Game.Current as TDGame;
 
+	public List<LeaderboardResult.Entry> leaderboard;
 	public TDGame()
 	{
-		if(IsServer)
+		if ( IsServer )
+		{
 			InitGameplay();
-		
+			leaderboard = new List<LeaderboardResult.Entry>();
+		}
 		if ( IsClient )
 			oldHud = new TDHUD();
 	}
