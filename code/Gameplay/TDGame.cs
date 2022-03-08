@@ -11,10 +11,12 @@ public partial class TDGame : Sandbox.Game
 {
 	private Castle castle;
 	private TDHUD oldHud;
+	private Translation _translation;
 	
 	public static new TDGame Current => Sandbox.Game.Current as TDGame;
 
 	public List<LeaderboardResult.Entry> leaderboard;
+	
 	public TDGame()
 	{
 		if ( IsServer )
@@ -22,8 +24,12 @@ public partial class TDGame : Sandbox.Game
 			InitGameplay();
 			leaderboard = new List<LeaderboardResult.Entry>();
 		}
+
 		if ( IsClient )
+		{
 			oldHud = new TDHUD();
+			_translation = new Translation();
+		}
 	}
 
 	[Event.Hotload]

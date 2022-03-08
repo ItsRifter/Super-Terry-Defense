@@ -1,5 +1,6 @@
 ﻿using System;
 using Sandbox;
+
 public partial class TowerBase : AnimEntity
 {
 	public virtual string TowerName => "Base Tower";
@@ -72,13 +73,36 @@ public partial class TowerBase : AnimEntity
 		if ( rotationFloat >= 360 )
 			rotationFloat = 0;
 
+		// if ( Owner != null && Owner is TDPlayer player )
+		// {
+		// 	UpdateClientPanel( To.Everyone, this, rotationFloat += 1 );
+		// } else
+		if ( Owner != null || Owner is not TDPlayer player )
+			return;
+
+		DestroyClientPanel();
+		Delete();
+	}
+
+	[Event.Tick.Client]
+	public virtual void SimulateTowerClient()
+	{
+		if ( rotationFloat >= 360 )
+			rotationFloat = 0;
+
 		if ( Owner != null && Owner is TDPlayer player )
 		{
-			UpdateClientPanel( To.Everyone, this, rotationFloat += 1, player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), TowerName ), player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Level" ) );
-		} else
-		{
-			DestroyClientPanel();
-			Delete();
+			if ( towerPanel == null )
+				return;
+
+			string towerTranslate = Translation.Translate( TowerName );
+			string lvlTranslate = Translation.Translate( "Tower_Level" );
+
+			towerPanel.Transform = Transform;
+			towerPanel.Position = Position - (Vector3.Up * 5 - CollisionBounds.Center);
+			towerPanel.Rotation = Rotation.FromYaw( rotationFloat += 1 );
+			towerPanel.OwnerName.SetText( Owner.Client.Name + "'s " + towerTranslate );
+			towerPanel.Level.SetText( lvlTranslate + CurTier );
 		}
 	}
 
@@ -136,18 +160,22 @@ public partial class TowerBase : AnimEntity
 	}
 
 	[ClientRpc]
-	public void CreateClientPanel(TowerBase tower, string towerTranslate)
+	public void CreateClientPanel(TowerBase tower)
 	{
 		towerPanel = new TowerWorldPanel();
+		var towerTranslate = Translation.Translate( TowerName );
 		towerPanel.OwnerName.SetText( tower.Owner.Client.Name + "'s " + towerTranslate );
 		towerPanel.Rotation = tower.Rotation;
 	}
 
 	[ClientRpc]
-	public void UpdateClientPanel( TowerBase tower, float rot, string towerTranslate, string lvlTranslate )
+	public void UpdateClientPanel( TowerBase tower, float rot)
 	{
 		if ( tower == null || towerPanel == null || tower.Owner == null )
 			return;
+
+		string towerTranslate = Translation.Translate( TowerName );
+		string lvlTranslate = Translation.Translate( "Tower_Level" );
 
 		towerPanel.Transform = tower.Transform;
 		towerPanel.Position = tower.Position - (Vector3.Up * 5 - tower.CollisionBounds.Center);
