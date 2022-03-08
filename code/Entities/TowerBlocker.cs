@@ -8,6 +8,8 @@ public class TowerBlocker : BrushEntity
 {
 	public override void Spawn()
 	{
+		EnableDrawing = true;
+		UsePhysicsCollision = true;
 	}
 
 }

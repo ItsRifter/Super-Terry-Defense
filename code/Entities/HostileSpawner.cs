@@ -8,11 +8,12 @@ public class HostileSpawner : Entity
 {
 	private TimeSince timeLastSpawn;
 
-	public int spawnCooldown;
+	public double spawnCooldown;
 
 	public int spawnCount;
 
 	public List<WaveSetup> WaveSetters;
+	public List<WaveSetup> MultiNPCs;
 
 	public List<TDNPCBase> aliveNPCs;
 
@@ -21,6 +22,7 @@ public class HostileSpawner : Entity
 		base.Spawn();
 		aliveNPCs = new List<TDNPCBase>();
 		WaveSetters = new List<WaveSetup>();
+		MultiNPCs = new List<WaveSetup>();
 
 		foreach ( var logicEnt in All )
 		{
@@ -35,19 +37,22 @@ public class HostileSpawner : Entity
 		if ( TDGame.Current.CurWaveStatus != TDGame.WaveStatus.Active )
 			return;
 
-		if ( spawnCount <= 0 && aliveNPCs.Count <= 0 )
-			TDGame.Current.EndWave();
-		else
+		foreach ( var multi in MultiNPCs )
 		{
-			if ( timeLastSpawn >= spawnCooldown && spawnCount > 0 )
+			if ( multi.Spawn_Count <= 0 && aliveNPCs.Count <= 0 )
+				TDGame.Current.EndWave();
+			else
 			{
-				var newNPC = Library.Create<TDNPCBase>( WaveSetters[TDGame.Current.CurWave - 1].NPCs_To_Spawn.ToString());
-				newNPC.Position = Position;
-				newNPC.Rotation = Rotation;
+				if ( timeLastSpawn >= multi.NPC_Spawn_Rate && multi.Spawn_Count > 0 )
+				{
+					var newNPC = Library.Create<TDNPCBase>( multi.NPCs_To_Spawn.ToString() );
+					newNPC.Position = Position;
+					newNPC.Rotation = Rotation;
 
-				aliveNPCs.Add( newNPC );
-				spawnCount--;
-				timeLastSpawn = 0;
+					aliveNPCs.Add( newNPC );
+					multi.Spawn_Count--;
+					timeLastSpawn = 0;
+				}
 			}
 		}
 	}
@@ -55,12 +60,13 @@ public class HostileSpawner : Entity
 	[Event( "td_new_wave" )]
 	public void UpdateSpawnerIndex()
 	{
+		MultiNPCs.Clear();
+
 		for ( int i = 0; i < WaveSetters.Count; i++ )
 		{
 			if( WaveSetters[i].Wave_Order == TDGame.Current.CurWave )
 			{
-				spawnCount = WaveSetters[i].Spawn_Count;
-				spawnCooldown = WaveSetters[i].NPC_Spawn_Rate;
+				MultiNPCs.Add( WaveSetters[i] );
 			}
 		}
 	}

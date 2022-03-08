@@ -40,12 +40,24 @@ public partial class TDGame
 	{
 		base.PostLevelLoaded();
 
-		int totalWaves = 0;
+		List<WaveSetup> waves = new List<WaveSetup>();
 
 		foreach ( var counter in All )
 		{
-			if ( counter is WaveSetup )
-				totalWaves++;
+			if ( counter is WaveSetup wave )
+			{
+				waves.Add( wave );
+			}
+		}
+
+		int totalWaves = 0;
+
+		foreach ( var duplicate in waves )
+		{
+			if ( duplicate.Wave_Order > totalWaves )
+			{
+				totalWaves = duplicate.Wave_Order;
+			}
 		}
 
 		MaxWave = totalWaves;
@@ -116,6 +128,9 @@ public partial class TDGame
 	[ClientRpc]
 	public void PlayMusicClient(string soundtrack)
 	{
+		if ( ConsoleSystem.GetValue( "td_music" ) == "False" )
+			return;
+
 		soundPlaying.Stop();
 		soundPlaying = Sound.FromScreen( soundtrack );
 	}

@@ -34,7 +34,7 @@ public class WaveSetup : Entity
 	public SpawnableNPC NPCs_To_Spawn { get; set; }
 
 	[Property( "NPCSpawnRate" ), Description( "How fast should this NPC spawn" )]
-	public int NPC_Spawn_Rate { get; set; }
+	public double NPC_Spawn_Rate { get; set; }
 
 	public override void Spawn()
 	{

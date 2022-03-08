@@ -99,6 +99,6 @@ metadata
 		8 : "Zombie Boss"
 		9 : "Void King"
 	]
-	npcspawnrate(integer) : "NPC Spawn Rate" : 0 : "How fast should this NPC spawn"
+	npcspawnrate(float) : "NPC Spawn Rate" :  : "How fast should this NPC spawn"
 ]
 

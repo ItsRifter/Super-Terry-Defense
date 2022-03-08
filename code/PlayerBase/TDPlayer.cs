@@ -20,6 +20,9 @@ partial class TDPlayer : Player
 	[ConVar.ClientData( "td_currentlanguage" )]
 	public static Languages ClientLanguage { get; set; }
 
+	[ConVar.ClientData( "td_music" )]
+	public static bool MuteMusic { get; set; }
+
 	public Languages CurLanguage;
 
 	private bool inUpgradeMode;
@@ -41,6 +44,7 @@ partial class TDPlayer : Player
 		SetModel( "models/citizen/citizen.vmdl" );
 
 		ConsoleSystem.SetValue( "td_currentlanguage", "EN" );
+		ConsoleSystem.SetValue( "td_music", true );
 
 		Controller = new WalkController();
 		Animator = new StandardPlayerAnimator();
@@ -120,7 +124,20 @@ partial class TDPlayer : Player
 
 		return message;
 	}
-	
+
+	[ClientCmd( "td_togglemusic" )]
+	public static void SetLanguageCMD()
+	{
+		MuteMusic = !MuteMusic;
+
+		if ( !MuteMusic )
+			Log.Info( "Music muted" );
+		else
+			Log.Info( "Music unmuted" );
+
+		ConsoleSystem.SetValue( "td_music", MuteMusic );
+	}
+
 	[ClientCmd("td_setlanguage")]
 	public static void SetLanguageCMD( string lang )
 	{
