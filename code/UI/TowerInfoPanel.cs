@@ -41,12 +41,12 @@ public partial class TowerInfoPanel : Panel
 
 			if ( tr.Entity is TowerBase tower && tr.Entity is not Castle)
 			{
-				TowerName.SetText( player.Translate(ConsoleSystem.GetValue("td_currentlanguage"), tower.TowerName) );
-				TowerDesc.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), tower.TowerName + " Desc") );
-				TowerLevel.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Level" ) + tower.CurTier );
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Info_DMG" ) + tower.AttackDamage +
-					player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Info_Cooldown" ) + Math.Round(tower.AttackCooldown, 2) 
-					+ player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Info_Range" ) + tower.AttackRange );
+				TowerName.SetText( Translation.Translate( tower.TowerName) );
+				TowerDesc.SetText( Translation.Translate( tower.TowerName + " Desc") );
+				TowerLevel.SetText( Translation.Translate( "Tower_Level" ) + tower.CurTier );
+				TowerInfo.SetText( Translation.Translate( "Info_DMG" ) + tower.AttackDamage +
+					Translation.Translate( "Info_Cooldown" ) + Math.Round(tower.AttackCooldown, 2) 
+					+ Translation.Translate( "Info_Range" ) + tower.AttackRange );
 				TowerUpgradeInfo.SetText( "Upon Upgrade: " + tower.UpgradeDesc[tower.CurTier] + "\nUpgrade Cost: " + tower.UpgradeCosts[tower.CurTier] );
 			} 
 			else if ( tr.Entity is Castle castle )

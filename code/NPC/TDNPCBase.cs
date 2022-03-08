@@ -129,7 +129,7 @@ public partial class TDNPCBase : AnimEntity
 			Rotation = Rotation.Lerp( Rotation, targetRotation, turnSpeed * Time.Delta * 20.0f );
 		}
 
-		var animHelper = new CitizenAnimationHelper( this );
+		var animHelper = new NPCAnimationHelper( this );
 
 		LookDir = Vector3.Lerp( LookDir, InputVelocity.WithZ( 0 ) * 1000, Time.Delta * 100.0f );
 		animHelper.WithLookAt( EyePosition + LookDir );

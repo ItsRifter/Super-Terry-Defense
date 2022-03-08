@@ -91,31 +91,31 @@ public partial class TowerManagement : Panel
 		switch ( iconIndex )
 		{
 			case 1:
-				TowerInfo.SetText( player.Translate(ConsoleSystem.GetValue("td_currentlanguage"), "Tower_Pistol_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_Pistol_Info" ) );
 				break;
 			case 2:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_SMG_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_SMG_Info" ) );
 				break;
 			case 3:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Explosive_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_Explosive_Info" ) );
 				break;
 			case 4:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Electric_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_Electric_Info" ) );
 				break;
 			case 5:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Radar_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_Radar_Info" ) );
 				break;
 			case 6:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Sniper_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_Sniper_Info" ) );
 				break;
 			case 7:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Tower_Frost_Info" ) );
+				TowerInfo.SetText( Translation.Translate( "Tower_Frost_Info" ) );
 				break;
 			case 8:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Info_Upgrade" ) );
+				TowerInfo.SetText( Translation.Translate( "Info_Upgrade" ) );
 				break;
 			case 9:
-				TowerInfo.SetText( player.Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), "Info_Sell" ) );
+				TowerInfo.SetText( Translation.Translate( "Info_Sell" ) );
 				break;
 		}	
 	}

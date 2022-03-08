@@ -1,0 +1,55 @@
+{
+ "Stat_Coins": "Monety: ",
+ "Tower_Level": "Poziom: ",
+ "Current_Wave": "Fala: ",
+ "Timer_Game": "Gra rozpocznie się za ",
+ "Timer_Wave": "Fala rozpocznie się za  ",
+ "Game_Finished": "Koniec gry!",
+
+ //Info on the hotbar
+ "Tower_Pistol_Info": "Wieża pistoletowa\nKosztuje 10 Monet",
+ "Tower_SMG_Info": "Wieża maszynowa\nKosztuje 25 Monet",
+ "Tower_Explosive_Info": "Wieża wybuchowa\nKosztuje 40 Monet",
+ "Tower_Electric_Info": "Wieża elektryczna\nKosztuje 65 Monet",
+ "Tower_Radar_Info": "Wieża radarowa\nKosztuje 50 Monet",
+ "Tower_Sniper_Info": "Wieża snajperska\nKosztuje 75 Monet",
+ "Tower_Frost_Info": "Wieża chłodnicza\nKosztuje 45 Monet",
+
+ //Info when hovering on a tower
+ //Names
+ "Pistol Tower": "Wieża pistoletowa",
+ "SMG Tower": "Wieża maszynowa",
+ "Explosive Tower": "Wieża wybuchowa",
+ "Electric Tower": "Wieża elektryczna",
+ "Radar Tower": "Wieża radarowa",
+ "Sniper Tower": "Wieża snajperska",
+ "Frost Tower": "Wieża chłodnicza",
+
+ //Descriptions
+ "Pistol Tower Desc": "Prosta, strzelająca wieżyczka",
+ "SMG Tower Desc": "Automatyczna, strzelająca wieżyczka",
+ "Explosive Tower Desc": "Wieża strzelająca kulami armatnimi",
+ "Electric Tower Desc": "Elektryzująca wieża",
+ "Radar Tower Desc": "Wieża ulepszająca inne wieże i ujawniająca ukrytych przeciwników",
+ "Sniper Tower Desc": "Wieża dalekiego zasięgu",
+ "Frost Tower Desc": "Wieża spowalniająca wrogów",
+
+ //Misc
+ "Info_OnUpgrade": "Po ulepszeniu",
+ "Info_DMG": "Obrażenia: ",
+ "Info_Cooldown": " | Czas odnowienia: ",
+ "Info_Range": " | Zasięg: ",
+ "Info_Upgrade": "Ulepsza wybraną wieżę",
+ "Info_Sell": "Sprzedaje daną wieżę",
+
+ //NPCs
+ "Peasant": "Prostak\nHP: ",
+ "Hidden": "Ukryty\nHP: ",
+ "Zombie": "Nieumarły\nHP: ",
+ "Rebel": "Buntownik\nHP: ",
+ "Rioter": "Wojownik\nHP: ",
+ "Voidling": "Pusklęcie\nHP: ",
+ "Brute": "Brutal\nHP: ",
+ "Zombie Boss": "Władca Nieumarłych\n HP: ",
+ "Void King": "Król Pustki\n HP: "
+}

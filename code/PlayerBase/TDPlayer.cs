@@ -11,20 +11,6 @@ partial class TDPlayer : Player
 
 	public bool lateJoiner = false;
 
-	public enum Languages
-	{
-		EN,
-		RU,
-	}
-
-	[ConVar.ClientData( "td_currentlanguage" )]
-	public static Languages ClientLanguage { get; set; }
-
-	[ConVar.ClientData( "td_music" )]
-	public static bool MuteMusic { get; set; }
-
-	public Languages CurLanguage;
-
 	private bool inUpgradeMode;
 	private bool inSellMode;
 	public TDPlayer()
@@ -75,79 +61,6 @@ partial class TDPlayer : Player
 		base.Simulate( cl );
 	}
 
-	public Languages GetLanguage()
-	{
-		return CurLanguage;
-	}
-
-	public string Translate( string lang, string message = "MISSING TRANSLATION" )
-	{
-		if ( lang == "EN" )
-		{
-			var englishTranslate = new English();
-			var textToConvert = englishTranslate.GetEnglish();
-
-			foreach ( var text in textToConvert )
-			{
-				if ( text.Item1 == message )
-				{
-					return text.Item2;
-				}
-			}
-		}
-		else if ( lang == "RU" )
-		{
-			var russianTranslate = new Russian();
-			var textToConvert = russianTranslate.GetRussian();
-
-			foreach ( var text in textToConvert )
-			{
-				if ( text.Item1 == message )
-				{
-					return text.Item2;
-				}
-			}
-		}
-		else if ( lang == "DE" )
-		{
-			var germanTranslate = new German();
-			var textToConvert = germanTranslate.GetGerman();
-
-			foreach ( var text in textToConvert )
-			{
-				if ( text.Item1 == message )
-				{
-					return text.Item2;
-				}
-			}
-		}
-
-		return message;
-	}
-
-	[ClientCmd( "td_togglemusic" )]
-	public static void SetLanguageCMD()
-	{
-		MuteMusic = !MuteMusic;
-
-		if ( !MuteMusic )
-			Log.Info( "Music muted" );
-		else
-			Log.Info( "Music unmuted" );
-
-		ConsoleSystem.SetValue( "td_music", MuteMusic );
-	}
-
-	[ClientCmd("td_setlanguage")]
-	public static void SetLanguageCMD( string lang )
-	{
-		if ( lang.ToUpper() == "EN" )
-			ConsoleSystem.SetValue( "td_currentlanguage", lang.ToUpper() );
-		else if ( lang.ToUpper() == "DE" )
-			ConsoleSystem.SetValue( "td_currentlanguage", lang.ToUpper() );
-		else if ( lang.ToUpper() == "RU" )
-			ConsoleSystem.SetValue( "td_currentlanguage", lang.ToUpper() );
-	}
 	public override void FrameSimulate( Client cl )
 	{
 		EyeRotation = Rotation;
@@ -222,9 +135,7 @@ partial class TDPlayer : Player
 					newTower.Position = tr.EndPosition;
 					CurMoney -= curTower.Cost;
 					newTower.Owner = this;
-
-					string translation = Translate( ConsoleSystem.GetValue( "td_currentlanguage" ), newTower.GetType().FullName );
-					newTower.CreateClientPanel( To.Everyone, newTower, translation );
+					newTower.CreateClientPanel( To.Everyone, newTower );
 				}
 			}
 		}
