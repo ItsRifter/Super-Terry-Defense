@@ -7,10 +7,9 @@ public partial class FrostTower : TowerBase
 	public override string TowerDesc => "A tower that slows targets";
 	public override string TowerModel => "models/towers/frost.vmdl";
 
-	private int FreezeRange;
 	public override int Cost => 45;
 	public override int MaxTier => 4;
-	public override int[] UpgradeCosts => new[] { 40, 55, 85, 125, 0 };
+	public override int[] UpgradeCosts => new[] { 65, 85, 125, 165, 0 };
 	public override string[] UpgradeDesc => new[] {
 		"+5 Range, +0.25 FireRate",
 		"+5 Range, +0.25 FireRate",
@@ -26,7 +25,6 @@ public partial class FrostTower : TowerBase
 		AttackRange = 75;
 		AttackDamage = 5;
 		AttackCooldown = 6.50f;
-		FreezeRange = 64;
 	}
 
 	public override void AttackNPC( TDNPCBase npc )
@@ -41,7 +39,6 @@ public partial class FrostTower : TowerBase
 
 		AttackRange += 5;
 		AttackCooldown -= 0.25f;
-		FreezeRange += 18;
 	}
 
 	public override void SimulateTower()

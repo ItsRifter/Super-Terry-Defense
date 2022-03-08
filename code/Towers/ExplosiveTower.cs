@@ -24,9 +24,9 @@ public partial class ExplosiveTower : TowerBase
 		base.Spawn();
 
 		AttackRange = 75;
-		AttackDamage = 15;
-		AttackCooldown = 3.25f;
-		ExplosiveRange = 48;
+		AttackDamage = 8;
+		AttackCooldown = 4.15f;
+		ExplosiveRange = 32;
 	}
 
 	public override void AttackNPC( TDNPCBase npc )

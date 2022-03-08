@@ -146,7 +146,7 @@ public partial class TowerBase : AnimEntity
 	[ClientRpc]
 	public void UpdateClientPanel( TowerBase tower, float rot, string towerTranslate, string lvlTranslate )
 	{
-		if ( tower == null || towerPanel == null )
+		if ( tower == null || towerPanel == null || tower.Owner == null )
 			return;
 
 		towerPanel.Transform = tower.Transform;

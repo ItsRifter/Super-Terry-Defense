@@ -11,11 +11,11 @@ public partial class PistolTower : TowerBase
 	public override int[] UpgradeCosts => new[] { 15, 20, 30, 50, 100, 0 };
 
 	public override string[] UpgradeDesc => new[] {
-		"+1 DMG, +15 Range, +0.5 FireRate",
-		"+1 DMG, +15 Range, +0.5 FireRate",
-		"+1 DMG, +15 Range, +0.5 FireRate, Can see cloaked enemies",
-		"+1 DMG, +15 Range, +0.5 FireRate",
-		"+1 DMG, +15 Range, +0.5 FireRate",
+		"+1 DMG, +15 Range, +0.25 FireRate",
+		"+1 DMG, +15 Range, +0.25 FireRate",
+		"+1 DMG, +15 Range, +0.25 FireRate, Can see cloaked enemies",
+		"+1 DMG, +15 Range, +0.25 FireRate",
+		"+1 DMG, +15 Range, +0.25 FireRate",
 		"MAX LEVEL REACHED"
 	};
 
@@ -25,7 +25,7 @@ public partial class PistolTower : TowerBase
 
 		AttackRange = 75;
 		AttackDamage = 5;
-		AttackCooldown = 3;
+		AttackCooldown = 4;
 	}
 
 	public override void AttackNPC( TDNPCBase npc )
@@ -47,7 +47,7 @@ public partial class PistolTower : TowerBase
 
 		AttackRange += 15;
 		AttackDamage += 1;
-		AttackCooldown -= 0.5f;
+		AttackCooldown -= 0.25f;
 
 		if(CurTier == 3)
 			CanSeeCloaked = true;

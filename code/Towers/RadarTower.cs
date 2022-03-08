@@ -13,9 +13,9 @@ public partial class RadarTower : TowerBase
 
 	public List<TowerBase> OldTowers;
 	public override string[] UpgradeDesc => new[] { 
-		"Nearby towers get 5+ DMG, +25 Range",
-		"Nearby towers get 10+ DMG, +25 Range",
-		"Nearby towers get 15+ DMG, +25 Range",
+		"Nearby towers get 1+ DMG, +25 Range",
+		"Nearby towers get 2+ DMG, +25 Range",
+		"Nearby towers get 3+ DMG, +25 Range",
 		"MAX LEVEL REACHED"
 	};
 
@@ -39,7 +39,7 @@ public partial class RadarTower : TowerBase
 	{
 		foreach ( var tower in OldTowers )
 		{
-			tower.AttackDamage -= 5 * (CurTier + 1);
+			tower.AttackDamage -= 1 * (CurTier + 1);
 			tower.RadarEnhanced = false;
 			tower.CanSeeCloaked = false;
 		}
@@ -55,7 +55,7 @@ public partial class RadarTower : TowerBase
 		{
 			if ( ent is TowerBase tower && !tower.RadarEnhanced && !(tower == this || tower is RadarTower) )
 			{
-				tower.AttackDamage += 5 * (CurTier + 1);
+				tower.AttackDamage += 1 * (CurTier + 1);
 				tower.RadarEnhanced = true;
 				tower.CanSeeCloaked = true;
 
@@ -75,7 +75,7 @@ public partial class RadarTower : TowerBase
 
 		foreach ( var tower in OldTowers )
 		{
-			tower.AttackDamage -= 5 * CurTier;
+			tower.AttackDamage -= 1 * CurTier;
 			tower.RadarEnhanced = false;
 			tower.CanSeeCloaked = false;
 		}
