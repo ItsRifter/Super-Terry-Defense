@@ -9,6 +9,8 @@ public partial class TowerBase : AnimEntity
 	[Net] public int AttackDamage { get; set; }
 	[Net] public float AttackCooldown { get; set; }
 	[Net] public int AttackRange { get; set; }
+	public virtual string AttackSound => "";
+
 	public virtual int Cost => 1;
 	public virtual int MaxTier => 2;
 	public bool CanSeeCloaked { get; set; }
@@ -17,6 +19,16 @@ public partial class TowerBase : AnimEntity
 	[Net] public TowerBase previewModel { get; private set; }
 	private TimeSince lastAttack;
 	private float rotationFloat;
+	private TDNPCBase target;
+	public enum AttackMethod
+	{
+		Bullet,
+		Explosive,
+		Frost,
+		Electric
+	}
+
+	public virtual AttackMethod MethodOfAttack => AttackMethod.Bullet;
 
 	private TowerWorldPanel towerPanel;
 
@@ -53,9 +65,48 @@ public partial class TowerBase : AnimEntity
 		lastAttack = 0;
 	}
 
+	[ClientRpc]
+	protected virtual void ShootEffects()
+	{
+		Host.AssertClient();
+
+		PlaySound( AttackSound );
+
+		if ( MethodOfAttack == AttackMethod.Bullet )
+		{
+			Particles.Create( "particles/bullet_muzzleflash.vpcf", this, "barrel1" );
+			Particles.Create( "particles/bullet_muzzleflash.vpcf", this, "barrel2" );
+		}
+
+		if(MethodOfAttack == AttackMethod.Explosive)
+			Particles.Create( "particles/explosive_muzzleflash.vpcf", this, "muzzle" );
+	}
+
 	[Event.Tick.Server]
 	public virtual void SimulateTower()
 	{
+
+		if( target.IsValid() && target.Position.Length >= AttackRange)
+		{
+			if ( target.NPCType == TDNPCBase.SpecialType.Cloaked && !CanSeeCloaked )
+				return;
+
+			if ( AttackDamage <= 0 )
+				return;
+
+			if ( MethodOfAttack == AttackMethod.Bullet || MethodOfAttack == AttackMethod.Explosive )
+				SetAnimLookAt( "target_look", target.Position );
+
+			if ( lastAttack > AttackCooldown )
+			{
+				ShootEffects();
+				AttackNPC( target );
+			}
+		} else
+		{
+			target = null;
+		}
+
 		var ents = FindInSphere( Position, AttackRange );
 
 		foreach ( var ent in ents )
@@ -65,18 +116,25 @@ public partial class TowerBase : AnimEntity
 				if ( npc.NPCType == TDNPCBase.SpecialType.Cloaked && !CanSeeCloaked )
 					return;
 
+				if ( AttackDamage <= 0 )
+					return;
+
+				if(MethodOfAttack == AttackMethod.Bullet || MethodOfAttack == AttackMethod.Explosive)
+					SetAnimLookAt( "target_look", npc.Position);
+				
 				if ( lastAttack > AttackCooldown )
+				{
+					ShootEffects();
 					AttackNPC( npc );
+				}
+
+				target = npc;
 			}
 		}
 
 		if ( rotationFloat >= 360 )
 			rotationFloat = 0;
 
-		// if ( Owner != null && Owner is TDPlayer player )
-		// {
-		// 	UpdateClientPanel( To.Everyone, this, rotationFloat += 1 );
-		// } else
 		if ( Owner != null || Owner is not TDPlayer player )
 			return;
 
@@ -125,8 +183,6 @@ public partial class TowerBase : AnimEntity
 			return;
 
 		previewModel.Position = tr.EndPosition;
-
-		DebugOverlay.Sphere( previewModel.Position, AttackRange, new Color( 0, 0, 175, 0.5f ) );
 
 		bool isCollidingTower = false;
 

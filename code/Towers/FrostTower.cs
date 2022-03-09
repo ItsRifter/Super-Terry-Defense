@@ -6,10 +6,13 @@ public partial class FrostTower : TowerBase
 	public override string TowerName => "Frost Tower";
 	public override string TowerDesc => "A tower that slows targets";
 	public override string TowerModel => "models/towers/frost.vmdl";
-
+	public override string AttackSound => "frost_shoot";
+	public override AttackMethod MethodOfAttack => AttackMethod.Frost;
 	public override int Cost => 45;
 	public override int MaxTier => 4;
 	public override int[] UpgradeCosts => new[] { 65, 85, 125, 165, 0 };
+
+
 	public override string[] UpgradeDesc => new[] {
 		"+5 Range, +0.25 FireRate",
 		"+5 Range, +0.25 FireRate",

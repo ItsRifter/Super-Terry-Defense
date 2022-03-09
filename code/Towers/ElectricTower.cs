@@ -9,6 +9,8 @@ public partial class ElectricTower : TowerBase
 	public override int Cost => 65;
 	public override int MaxTier => 3;
 	public override int[] UpgradeCosts => new[] { 65, 145, 225, 0 };
+	public override AttackMethod MethodOfAttack => AttackMethod.Electric;
+	public override string AttackSound => "electric_shoot";
 
 	private int ShockTargets;
 

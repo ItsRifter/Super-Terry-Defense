@@ -114,9 +114,27 @@
 					{
 						_class = "Attachment"
 						name = "turret"
-						parent_bone = "weapon_blaster_root"
+						parent_bone = "weapon_blaster_head"
 						relative_origin = [ 0.0, 0.0, 0.0 ]
-						relative_angles = [ 0.0, 0.0, 0.0 ]
+						relative_angles = [ 0.0, 90.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "barrel1"
+						parent_bone = "weapon_blaster_head"
+						relative_origin = [ -1.880586, 7.421617, -0.908195 ]
+						relative_angles = [ 0.0, 90.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "barrel2"
+						parent_bone = "weapon_blaster_head"
+						relative_origin = [ 1.88059, 7.42162, -0.908195 ]
+						relative_angles = [ 0.0, 90.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
 					},
@@ -168,6 +186,6 @@
 		]
 		model_archetype = ""
 		primary_associated_entity = ""
-		anim_graph_name = ""
+		anim_graph_name = "animgraphs/pistol_smg.vanmgrph"
 	}
 }

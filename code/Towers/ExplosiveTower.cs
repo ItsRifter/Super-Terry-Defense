@@ -6,6 +6,8 @@ public partial class ExplosiveTower : TowerBase
 	public override string TowerName => "Explosive Tower";
 	public override string TowerDesc => "A tower that fires explosive cannons";
 	public override string TowerModel => "models/towers/explosive.vmdl";
+	public override AttackMethod MethodOfAttack => AttackMethod.Explosive;
+	public override string AttackSound => "explosive_shoot";
 
 	private int ExplosiveRange;
 	public override int Cost => 40;

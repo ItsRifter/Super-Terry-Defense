@@ -6,6 +6,7 @@ public partial class SniperTower : TowerBase
 	public override string TowerName => "Sniper Tower";
 	public override string TowerDesc => "A long ranged tower";
 	public override string TowerModel => "models/towers/sniper.vmdl";
+	public override string AttackSound => "sniper_shoot";
 	public override int Cost => 75;
 	public override int MaxTier => 4;
 	public override int[] UpgradeCosts => new[] { 85, 115, 145, 195, 0 };
