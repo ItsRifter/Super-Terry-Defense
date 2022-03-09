@@ -176,16 +176,11 @@ public partial class TDGame
 		if ( IsServer )
 			foreach ( var client in Client.All)
 			{
-				if ( client.Pawn is TDPlayer player && player.lateJoiner )
+				if ( client.Pawn is TDPlayer player && player.lateJoiner && !client.IsBot )
 					break;
 
-				foreach ( var leader in leaderboard )
-				{
-					if ( leader.DisplayName == client.Name )
-						GameServices.SubmitScore( client.PlayerId, leader.Rating + CurWave );
-					else
-						GameServices.SubmitScore( client.PlayerId, CurWave );
-				}
+				GameServices.SubmitScore( client.PlayerId, CurWave );
+				
 			}
 
 		CurGameStatus = GameStatus.Post;
