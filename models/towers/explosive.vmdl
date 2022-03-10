@@ -37,10 +37,26 @@
 				[
 					{
 						_class = "RenderMeshFile"
-						filename = "models/raw/weapon_cannon.fbx"
+						filename = "models/raw/dmx/cannon.dmx"
 						import_translation = [ 0.0, 0.0, 0.0 ]
 						import_rotation = [ 0.0, 0.0, 0.0 ]
-						import_scale = 4.0
+						import_scale = 1.0
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+					{
+						_class = "RenderMeshFile"
+						filename = "models/raw/dmx/cannon_base.dmx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 1.0
 						align_origin_x_type = "None"
 						align_origin_y_type = "None"
 						align_origin_z_type = "None"
@@ -58,15 +74,16 @@
 				children = 
 				[
 					{
-						_class = "PhysicsHullFromRender"
+						_class = "PhysicsShapeCylinder"
 						parent_bone = ""
 						surface_prop = "default"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						faceMergeAngle = 20.0
-						maxHullVertices = 32
+						radius = 9.104683
+						point0 = [ 0.0, 0.0, 0.000003 ]
+						point1 = [ 0.0, 0.0, 15.029314 ]
 					},
 				]
 			},
@@ -77,11 +94,26 @@
 					{
 						_class = "Attachment"
 						name = "muzzle"
-						parent_bone = ""
-						relative_origin = [ 11.56802, 0.0, 10.43265 ]
+						parent_bone = "cannon_root"
+						relative_origin = [ 0.0, 11.656701, 0.0 ]
 						relative_angles = [ 0.0, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
+					},
+				]
+			},
+			{
+				_class = "ModelModifierList"
+				children = 
+				[
+					{
+						_class = "ModelModifier_ScaleAndMirror"
+						scale = 4.0
+						mirror_x = false
+						mirror_y = false
+						mirror_z = false
+						flip_bone_forward = false
+						swap_left_and_right_bones = false
 					},
 				]
 			},

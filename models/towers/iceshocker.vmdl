@@ -15,7 +15,7 @@
 						[
 							{
 								from = "crystal.vmat"
-								to = "materials/towers/purple.vmat"
+								to = "materials/towers/ice_blue.vmat"
 							},
 							{
 								from = "stonedark.vmat"
@@ -23,7 +23,7 @@
 							},
 							{
 								from = "red.vmat"
-								to = "materials/towers/purple.vmat"
+								to = "materials/towers/ice_blue.vmat"
 							},
 							{
 								from = "stone.vmat"
