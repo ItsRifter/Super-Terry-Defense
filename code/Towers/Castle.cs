@@ -23,6 +23,23 @@ public partial class Castle : TowerBase
 
 	}
 
+	public void Destroyed()
+	{
+		if ( TDGame.Current.GameType == TDGame.GamemodeType.Competitive )
+		{
+			if ( Name == "blue_castle" )
+				TDGame.Current.AnnounceWinningTeam( "Red" );
+			else if ( Name == "red_castle" )
+				TDGame.Current.AnnounceWinningTeam( "Blue" );
+		}
+		else
+		{
+			TDGame.Current.EndGame();
+		}
+
+		Delete();
+	}
+
 	public override void TakeDamage( DamageInfo info )
 	{
 		base.TakeDamage( info );
@@ -30,16 +47,5 @@ public partial class Castle : TowerBase
 
 	public override void OnKilled()
 	{
-		base.OnKilled();
-
-		if(TDGame.Current.GameType == TDGame.GamemodeType.Competitive)
-		{
-			if ( Name == "blue_castle" )
-				TDGame.Current.AnnounceWinningTeam( "Red" );
-			else if (Name == "red_castle")
-				TDGame.Current.AnnounceWinningTeam( "Blue" );
-		}
-
-		TDGame.Current.EndGame();
 	}
 }

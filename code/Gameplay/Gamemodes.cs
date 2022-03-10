@@ -69,13 +69,13 @@ public partial class TDGame
 
 	public void SetUpTeams(TDPlayer player )
 	{
-		if ( player.CurrentBluePlayers().Count == 0 && player.CurrentRedPlayers().Count == 0 )
+		/*if ( player.CurrentBluePlayers().Count == 0 player.CurrentRedPlayers().Count == 0 )
 		{
 			if(Rand.Int(1, 2) == 1)
 				player.JoinTeam( TDPlayer.Teams.Red );
 			else
 				player.JoinTeam( TDPlayer.Teams.Blue );
-		}
+		}*/
 
 		if ( player.CurrentBluePlayers().Count >= player.CurrentRedPlayers().Count )
 			player.JoinTeam( TDPlayer.Teams.Red );
@@ -87,6 +87,7 @@ public partial class TDGame
 	public void NewGamePlus()
 	{
 		CurWave = 0;
+		Difficulty += 1;
 	}
 
 	public void AnnounceWinningTeam(string WinningTeam)

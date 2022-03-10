@@ -4,7 +4,55 @@
 	m_pParameterList = 
 	{
 		_class = "CAnimParameterList"
-		m_Parameters = [  ]
+		m_Parameters = 
+		[
+			{
+				_class = "CBoolAnimParameter"
+				m_name = "b_attacking"
+				m_id = 
+				{
+					m_id = 1657679051
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bNetwork = true
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bPredicted = true
+				m_bDefaultValue = false
+			},
+			{
+				_class = "CVectorAnimParameter"
+				m_name = "target_look"
+				m_id = 
+				{
+					m_id = 1026130577
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bNetwork = true
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bPredicted = true
+				m_defaultValue = [ 0.0, 0.0, 0.0 ]
+				m_bInterpolate = true
+			},
+			{
+				_class = "CFloatAnimParameter"
+				m_name = "target_look_weight"
+				m_id = 
+				{
+					m_id = 781100887
+				}
+				m_previewButton = "ANIMPARAM_BUTTON_NONE"
+				m_bNetwork = true
+				m_bUseMostRecentValue = false
+				m_bAutoReset = false
+				m_bPredicted = true
+				m_fDefaultValue = 1.0
+				m_fMinValue = 0.0
+				m_fMaxValue = 1.0
+				m_bInterpolate = false
+			},
+		]
 	}
 	m_pTagManager = 
 	{
@@ -47,8 +95,152 @@
 	}
 	m_rootNodeID = 
 	{
-		m_id = 4294967295
+		m_id = 1444634235
 	}
-	m_previewModels = [  ]
-	m_nodes = [  ]
+	m_previewModels = 
+	[
+		"models/towers/explosive.vmdl",
+	]
+	m_nodes = 
+	[
+		{
+			key = 
+			{
+				m_id = 254292530
+			}
+			value = 
+			{
+				_class = "CLookAtAnimNode"
+				m_sName = "LookAtTarget"
+				m_vecPosition = [ 272.0, -48.0 ]
+				m_nNodeID = 
+				{
+					m_id = 254292530
+				}
+				m_networkMode = "ServerAuthoritative"
+				m_sNote = ""
+				m_childID = 
+				{
+					m_id = 528879199
+				}
+				m_target = "VectorParameter"
+				m_param = 
+				{
+					m_id = 1026130577
+				}
+				m_weightParam = 
+				{
+					m_id = 781100887
+				}
+				m_lookatChainName = "attack"
+				m_attachmentName = "cannon"
+				m_flYawLimit = 180.0
+				m_flPitchLimit = 0.0
+				m_bResetBase = false
+				m_bLockWhenWaning = false
+				m_bUseHysteresis = false
+				m_flHysteresisInnerAngle = 1.0
+				m_flHysteresisOuterAngle = 20.0
+				m_damping = 
+				{
+					_class = "CAnimInputDamping"
+					m_speedFunction = "NoDamping"
+					m_fSpeedScale = 1.0
+					m_fMinSpeed = 10.0
+					m_fMaxTension = 1000.0
+				}
+			}
+		},
+		{
+			key = 
+			{
+				m_id = 528879199
+			}
+			value = 
+			{
+				_class = "CLookAtAnimNode"
+				m_sName = "LookAtTargetBase"
+				m_vecPosition = [ 80.0, -48.0 ]
+				m_nNodeID = 
+				{
+					m_id = 528879199
+				}
+				m_networkMode = "ServerAuthoritative"
+				m_sNote = ""
+				m_childID = 
+				{
+					m_id = 969461516
+				}
+				m_target = "VectorParameter"
+				m_param = 
+				{
+					m_id = 1026130577
+				}
+				m_weightParam = 
+				{
+					m_id = 781100887
+				}
+				m_lookatChainName = "attack_base"
+				m_attachmentName = "cannon"
+				m_flYawLimit = 180.0
+				m_flPitchLimit = 0.0
+				m_bResetBase = false
+				m_bLockWhenWaning = false
+				m_bUseHysteresis = false
+				m_flHysteresisInnerAngle = 1.0
+				m_flHysteresisOuterAngle = 20.0
+				m_damping = 
+				{
+					_class = "CAnimInputDamping"
+					m_speedFunction = "NoDamping"
+					m_fSpeedScale = 1.0
+					m_fMinSpeed = 10.0
+					m_fMaxTension = 1000.0
+				}
+			}
+		},
+		{
+			key = 
+			{
+				m_id = 969461516
+			}
+			value = 
+			{
+				_class = "CSingleFrameAnimNode"
+				m_sName = "Idle"
+				m_vecPosition = [ -112.0, -48.0 ]
+				m_nNodeID = 
+				{
+					m_id = 969461516
+				}
+				m_networkMode = "ServerAuthoritative"
+				m_sNote = ""
+				m_sequenceName = "cannon_base"
+				m_nFrameIndex = 0
+				m_tagSpans = [  ]
+			}
+		},
+		{
+			key = 
+			{
+				m_id = 1444634235
+			}
+			value = 
+			{
+				_class = "CRootAnimNode"
+				m_sName = "Unnamed"
+				m_vecPosition = [ 464.0, -48.0 ]
+				m_nNodeID = 
+				{
+					m_id = 1444634235
+				}
+				m_networkMode = "ServerAuthoritative"
+				m_sNote = ""
+				m_childID = 
+				{
+					m_id = 254292530
+				}
+			}
+		},
+	]
 }

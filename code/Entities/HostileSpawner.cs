@@ -23,8 +23,6 @@ public class HostileSpawner : Entity
 	[Property( "CastleToFind" ), Description( "Which side in competitive or cooperative should find the castle (must be red_castle or blue_castle)" )]
 	public string Castle_Target { get; set; }
 
-	private CastleEntity castleTarget;
-
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -36,11 +34,6 @@ public class HostileSpawner : Entity
 		{
 			if ( logicEnt is WaveSetup waveSetter )
 				WaveSetters.Add( waveSetter );
-
-			if ( logicEnt is CastleEntity castle && castle.Name.Contains(Castle_Target) )
-			{
-				castleTarget = castle;
-			}
 		}
 	}
 
@@ -71,7 +64,8 @@ public class HostileSpawner : Entity
 					multi.Spawn_Count--;
 					timeLastSpawn = 0;
 
-					newNPC.TargetCastle = castleTarget;
+					if ( Castle_Target == "red_castle" )
+						newNPC.OnBlueSide = false;
 				}
 			}
 		}

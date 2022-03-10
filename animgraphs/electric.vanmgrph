@@ -47,8 +47,57 @@
 	}
 	m_rootNodeID = 
 	{
-		m_id = 4294967295
+		m_id = 414272718
 	}
-	m_previewModels = [  ]
-	m_nodes = [  ]
+	m_previewModels = 
+	[
+		"models/towers/electric.vmdl",
+	]
+	m_nodes = 
+	[
+		{
+			key = 
+			{
+				m_id = 306769868
+			}
+			value = 
+			{
+				_class = "CSequenceAnimNode"
+				m_sName = "Unnamed"
+				m_vecPosition = [ -128.0, -48.0 ]
+				m_nNodeID = 
+				{
+					m_id = 306769868
+				}
+				m_networkMode = "ServerAuthoritative"
+				m_sNote = ""
+				m_tagSpans = [  ]
+				m_sequenceName = "electric_tower_idle"
+				m_playbackSpeed = 1.0
+				m_bLoop = true
+			}
+		},
+		{
+			key = 
+			{
+				m_id = 414272718
+			}
+			value = 
+			{
+				_class = "CRootAnimNode"
+				m_sName = "Unnamed"
+				m_vecPosition = [ 112.0, -48.0 ]
+				m_nNodeID = 
+				{
+					m_id = 414272718
+				}
+				m_networkMode = "ServerAuthoritative"
+				m_sNote = ""
+				m_childID = 
+				{
+					m_id = 306769868
+				}
+			}
+		},
+	]
 }

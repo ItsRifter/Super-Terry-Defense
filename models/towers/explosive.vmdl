@@ -95,7 +95,16 @@
 						_class = "Attachment"
 						name = "muzzle"
 						parent_bone = "cannon_root"
-						relative_origin = [ 0.0, 11.656701, 0.0 ]
+						relative_origin = [ 0.000433, 14.220207, 0.0 ]
+						relative_angles = [ 0.0, 90.0, 0.0 ]
+						weight = 1.0
+						ignore_rotation = false
+					},
+					{
+						_class = "Attachment"
+						name = "cannon"
+						parent_bone = ""
+						relative_origin = [ 0.0, 0.0, 0.0 ]
 						relative_angles = [ 0.0, 0.0, 0.0 ]
 						weight = 1.0
 						ignore_rotation = false
@@ -116,6 +125,70 @@
 						swap_left_and_right_bones = false
 					},
 				]
+			},
+			{
+				_class = "GameDataList"
+				children = 
+				[
+					{
+						_class = "LookAtChain"
+						name = "attack"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
+								{
+									name = "cannon_root"
+									weight = 1.0
+								},
+							]
+						}
+					},
+					{
+						_class = "LookAtChain"
+						name = "attack_base"
+						lookat_chain = 
+						{
+							name = ""
+							bones = 
+							[
+								{
+									name = "cannon_base_root"
+									weight = 1.0
+								},
+							]
+						}
+					},
+				]
+			},
+			{
+				_class = "AnimationList"
+				children = 
+				[
+					{
+						_class = "AnimFile"
+						name = "cannon_base"
+						activity_name = ""
+						activity_weight = 1
+						weight_list_name = ""
+						fade_in_time = 0.2
+						fade_out_time = 0.2
+						looping = false
+						delta = false
+						worldSpace = false
+						hidden = false
+						anim_markup_ordered = false
+						disable_compression = false
+						source_filename = "models/raw/dmx/cannon_base.dmx"
+						start_frame = -1
+						end_frame = -1
+						framerate = -1.0
+						take = 0
+						reverse = false
+					},
+				]
+				default_root_bone_name = ""
 			},
 		]
 		model_archetype = ""

@@ -159,8 +159,7 @@ public partial class TDGame
 			EndGame( true );
 		else if ( CurWave >= MaxWave && GameType == GamemodeType.Competitive )
 		{
-			CurWave = 0;
-			Difficulty += 1;
+			NewGamePlus();
 			WaveTimer = 20.0f + Time.Now;
 			CurWaveStatus = WaveStatus.Waiting;
 			PlayMusicClient( To.Everyone, curSoundtrack + "_end" );

@@ -17,6 +17,7 @@ public partial class TDNPCBase : AnimEntity
 	public virtual float NPCScale => 1;
 	public virtual float CastleDamage => 1;
 
+	public bool OnBlueSide = true;
 	public enum SpecialType
 	{
 		Standard,
@@ -36,7 +37,7 @@ public partial class TDNPCBase : AnimEntity
 
 	Vector3 LookDir;
 
-	public Entity TargetCastle;
+	public Castle TargetCastle;
 
 	NPCNavigation Path = new NPCNavigation();
 	public NPCSteering Steer;
@@ -46,7 +47,7 @@ public partial class TDNPCBase : AnimEntity
 		SetModel( BaseModel );
 
 		Scale = NPCScale;
-		Health = BaseHealth * (TDGame.Current.Difficulty + 1);
+		Health = BaseHealth + (10 * TDGame.Current.Difficulty);
 
 		EnableHitboxes = true;
 
@@ -62,12 +63,12 @@ public partial class TDNPCBase : AnimEntity
 	public void Despawn()
 	{
 		DamageInfo dmgInfo = new DamageInfo();
-		dmgInfo.Damage = CastleDamage * (TDGame.Current.Difficulty + 1);
+		dmgInfo.Damage = CastleDamage * (TDGame.Current.Difficulty);
 
 		TargetCastle.TakeDamage( dmgInfo );
 
 		if ( TargetCastle.Health <= 0 )
-			TargetCastle.OnKilled();
+			TargetCastle.Destroyed();
 
 		Event.Run( "td_npckilled", this );
 		EnableDrawing = false;
@@ -84,7 +85,7 @@ public partial class TDNPCBase : AnimEntity
 	{
 		InputVelocity = 0;		
 
-		if ( Steer != null )
+		if ( Steer != null || !IsValid )
 		{
 			Steer.Tick( Position );
 
@@ -102,8 +103,13 @@ public partial class TDNPCBase : AnimEntity
 				if ( TargetCastle == null )
 				{
 					foreach ( var ent in All )
-						if ( ent is Castle )
-							TargetCastle = ent;
+						if ( ent is Castle target )
+						{
+							if( target.Name == "blue_castle" && OnBlueSide)
+								TargetCastle = target;
+							else if (target.Name == "red_castle" && !OnBlueSide)
+								TargetCastle = target;
+						}
 				}
 
 				Steer.Target = TargetCastle.Position;
@@ -218,7 +224,19 @@ public partial class TDNPCBase : AnimEntity
 		foreach ( var client in Client.All)
 		{
 			if(client.Pawn is TDPlayer player)
-				player.AddMoney( cashReward );
+				if(TDGame.Current.GameType == TDGame.GamemodeType.Competitive)
+				{
+					if( OnBlueSide && player.CurTeam == TDPlayer.Teams.Blue )
+					{
+						player.AddMoney( cashReward );
+					} else if ( !OnBlueSide && player.CurTeam == TDPlayer.Teams.Red )
+						player.AddMoney( cashReward );
+				} 
+				else
+				{
+					player.AddMoney( cashReward );
+				}
+
 		}
 
 		Event.Run( "td_npckilled", this );

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 public partial class TDGame : Sandbox.Game
 {
-	private Castle castle;
 	private TDHUD oldHud;
 	private Translation _translation;
 	
@@ -68,7 +67,7 @@ public partial class TDGame : Sandbox.Game
 
 			if(GameType == GamemodeType.Competitive)
 			{
-				if(Rand.Int(1, 2) == 1)
+				if ( player.CurrentBluePlayers().Count >= player.CurrentRedPlayers().Count )
 					player.JoinTeam( TDPlayer.Teams.Red );
 				else
 					player.JoinTeam( TDPlayer.Teams.Blue );
