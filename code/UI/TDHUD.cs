@@ -19,5 +19,7 @@ public partial class TDHUD : Sandbox.HudEntity<RootPanel>
 		RootPanel.AddChild<NPCTag>();
 		RootPanel.AddChild<TowerInfoPanel>();
 		RootPanel.AddChild<TowerManagement>().StyleSheet.Load("UI/TowerManagement.scss");
+
+		//RootPanel.AddChild<HostConfigure>();
 	}
 }

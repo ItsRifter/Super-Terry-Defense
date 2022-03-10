@@ -31,6 +31,15 @@ public partial class Castle : TowerBase
 	public override void OnKilled()
 	{
 		base.OnKilled();
+
+		if(TDGame.Current.GameType == TDGame.GamemodeType.Competitive)
+		{
+			if ( Name == "blue_castle" )
+				TDGame.Current.AnnounceWinningTeam( "Red" );
+			else if (Name == "red_castle")
+				TDGame.Current.AnnounceWinningTeam( "Blue" );
+		}
+
 		TDGame.Current.EndGame();
 	}
 }

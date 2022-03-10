@@ -7,6 +7,7 @@ public partial class TDGame
 	[Net] public int CurWave { get; private set; }
 	[Net] public int MaxWave { get; private set; }
 	[Net] public float WaveTimer { get; private set; }
+	[Net] public int Difficulty { get; private set; }
 
 	private string curSoundtrack;
 
@@ -22,18 +23,34 @@ public partial class TDGame
 	public enum GameStatus
 	{
 		Idle,
+		Starting,
 		Active,
 		Post
 	}
 
-	[Net] public GameStatus CurGameStatus { get; private set; }
-	[Net] public WaveStatus CurWaveStatus { get; private set; }
+	[Net, Predicted]
+	public GameStatus CurGameStatus { get; private set; }
+
+	[Net, Predicted] public WaveStatus CurWaveStatus { get; private set; }
 
 	public void InitGameplay()
 	{
-		WaveTimer = 45.0f + Time.Now;
 		CurWaveStatus = WaveStatus.Idle;
 		CurGameStatus = GameStatus.Idle;
+		GameType = GamemodeType.Unspecified;
+		Difficulty = 1;
+		foreach ( var diffSetter in All )
+		{
+			if(diffSetter is DifficultySetter diff )
+			{
+				if ( diff.Difficulty == DifficultySetter.DiffEnum.Medium )
+					Difficulty = 2;
+				else if ( diff.Difficulty == DifficultySetter.DiffEnum.Hard )
+					Difficulty = 3;
+				if ( diff.Difficulty == DifficultySetter.DiffEnum.Impossible )
+					Difficulty = 5;
+			}
+		}
 	}
 
 	public override void PostLevelLoaded()
@@ -89,7 +106,7 @@ public partial class TDGame
 	}
 
 	[Event( "td_evnt_restart" )]
-	public async void StartGame()
+	public void StartGame()
 	{
 		StopMusicClient( To.Everyone );
 		CurWave = 0;
@@ -100,12 +117,13 @@ public partial class TDGame
 		foreach ( var client in Client.All )
 		{
 			if ( client.Pawn is TDPlayer player )
+			{
 				player.InitStats();
-		}
 
-		var q = await GameServices.Leaderboard.Query( Global.GameIdent );
-		var sorted = q.Entries.OrderBy( x => x.Rating ).Where( x => x.Rating > 0 ).ToList();
-		leaderboard = sorted;
+				if(GameType == GamemodeType.Competitive)
+					SetUpTeams(player);
+			}
+		}
 	}
 
 	public void StartWave()
@@ -151,12 +169,16 @@ public partial class TDGame
 	public void UpdateTimer()
 	{
 		if ( CurGameStatus == GameStatus.Idle )
+			return;
+
+		if ( CurGameStatus == GameStatus.Starting && (WaveTimer - Time.Now) <= 0 )
 		{
-			if ( (WaveTimer - Time.Now) <= 0 )
-				StartGame();
-		} else if ( CurGameStatus == GameStatus.Active )
+			StartGame();
+		}
+
+		if ( CurGameStatus == GameStatus.Active )
 		{
-			if( CurWaveStatus == WaveStatus.Waiting )
+			if ( CurWaveStatus == WaveStatus.Waiting )
 				if ( (WaveTimer - Time.Now) <= 0 )
 					StartWave();
 		}

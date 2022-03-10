@@ -4,8 +4,8 @@ using Sandbox;
 public partial class VoidKing : TDNPCBase
 {
 	public override string NPCName => "Void King";
-	public override int BaseHealth => 500;
-	public override float BaseSpeed => 10;
+	public override int BaseHealth => 750;
+	public override float BaseSpeed => 13;
 	public override string BaseModel => "models/citizen/citizen.vmdl";
 	public override int minCash => 65;
 	public override int maxCash => 150;

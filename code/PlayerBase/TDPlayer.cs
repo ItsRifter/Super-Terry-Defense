@@ -1,5 +1,6 @@
 ﻿using Sandbox;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 partial class TDPlayer : Player
@@ -13,6 +14,16 @@ partial class TDPlayer : Player
 
 	private bool inUpgradeMode;
 	private bool inSellMode;
+
+	public enum Teams
+	{
+		Unspecified,
+		Red,
+		Blue
+	}
+
+	public Teams CurTeam;
+
 	public TDPlayer()
 	{
 		
@@ -26,6 +37,8 @@ partial class TDPlayer : Player
 	public override void Spawn()
 	{
 		base.Respawn();
+
+		CurTeam = Teams.Unspecified;
 
 		SetModel( "models/citizen/citizen.vmdl" );
 
@@ -45,6 +58,49 @@ partial class TDPlayer : Player
 
 		inUpgradeMode = false;
 		inSellMode = false;
+	}
+
+	public void JoinTeam(Teams newTeam)
+	{
+		CurTeam = newTeam;
+
+		if (CurTeam == Teams.Red)
+        {
+			var compPoints = All.OfType<CompSpawn>();
+			var randomSpawnPoint = compPoints.OrderBy( x => Guid.NewGuid() ).FirstOrDefault();
+			
+			if ( randomSpawnPoint != null )
+			{
+				Position = randomSpawnPoint.Position;
+				Rotation = randomSpawnPoint.Rotation;
+			}
+        }
+	}
+
+	public List<TDPlayer> CurrentRedPlayers()
+	{
+		var reds = new List<TDPlayer>();
+
+		foreach ( var client in Client.All)
+		{
+			if ( client.Pawn is TDPlayer player && player.CurTeam == Teams.Red )
+				reds.Add( player );
+		}
+
+		return reds;
+	}
+
+	public List<TDPlayer> CurrentBluePlayers()
+	{
+		var blues = new List<TDPlayer>();
+
+		foreach ( var client in Client.All )
+		{
+			if ( client.Pawn is TDPlayer player && player.CurTeam == Teams.Blue )
+				blues.Add( player );
+		}
+
+		return blues;
 	}
 
 	public override void Simulate( Client cl )

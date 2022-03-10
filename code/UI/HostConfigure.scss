@@ -1,0 +1,93 @@
+﻿hostconfigure {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all 0.1s ease-out;
+    background-color: rgba(30, 30, 30, 0.8);
+    backdrop-filter: blur( 10px );
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto;
+
+    &.active {
+        pointer-events: all;
+        opacity: 1;
+    }
+
+    .menu {
+        width: 100%;
+        height: 60%;
+        background-color: rgb(33, 33, 33);
+        box-shadow: 0 0 5px black;
+
+        .coopPnl {
+            width: 50%;
+            height: 100%;
+            right: 0%;
+            background-color: rgb(50, 50, 160);
+            opacity: 0.25;
+
+            &:hover {
+                opacity: 1;
+                transition: all 1s ease-out;
+                right: 0%;
+                width: 75%;
+            }
+
+            .coopText {
+                text-align: center;
+                width: 100%;
+                top: 40%;
+                justify-content: center;
+                align-content: center;
+                font-size: 64px;
+                color: blue;
+            }
+        }
+
+        .compPnl {
+            width: 50%;
+            height: 100%;
+            left: -30%;
+            background-color: rgb(160, 50, 50);
+            opacity: 0.25;
+
+            &:hover {
+                opacity: 1;
+                transition: all 0.5s ease-out;
+                width: 80%;
+                left: -26.5%;
+            }
+
+            .compText {
+                text-align: center;
+                width: 100%;
+                top: 40%;
+                justify-content: center;
+                align-content: center;
+                font-size: 64px;
+                color: red;
+            }
+        }
+
+        .titleText {
+            text-align: center;
+            left: 35%;
+            font-size: 48px;
+            color: white;
+            text-align: center;
+            .selectText {
+                
+                top: 50px;
+                left: -21.5%;
+                font-size: 32px;
+                color: white;
+            }
+        }
+    }
+
+    .mainarea {
+        flex-grow: 1;
+    }
+}

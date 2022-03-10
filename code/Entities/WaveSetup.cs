@@ -7,7 +7,7 @@ using System.Collections.Generic;
 [Hammer.VisGroup( Hammer.VisGroup.Logic )]
 public class WaveSetup : Entity
 {
-	[Property( "WaveOrder" ), Description( "What order should this go?" )]
+	[Property( "WaveOrder" ), Description( "What order should this go" )]
 	public int Wave_Order { get; set; }
 
 	[Property( "SpawnCount" ), Description( "How many times should this spawn for that NPC" )]

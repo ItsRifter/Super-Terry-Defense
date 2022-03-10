@@ -33,36 +33,15 @@ public partial class TDGame : Sandbox.Game
 	}
 
 	[Event.Hotload]
-	public void UpdateHUD()
+	public void HotloadGame()
 	{
+		CurGameStatus = GameStatus.Idle;
+		GameType = GamemodeType.Unspecified;
+
 		oldHud?.Delete();
 
 		if ( IsClient )
 			oldHud = new TDHUD();
-	}
-
-	public void SpawnCastle()
-	{
-		var castleSpawn = All.OfType<CastleEntity>().FirstOrDefault();
-
-		if ( castleSpawn == null )
-		{
-			Log.Error( "This map does not support Super Terry Defense!" );
-			return;
-		}
-
-		castle = new Castle();
-
-		castle.Position = castleSpawn.Position;
-		castle.Rotation = castleSpawn.Rotation;
-	}
-
-	public void CreateNPCSpawner()
-	{
-		var npcSpawner = All.OfType<HostileSpawner>().FirstOrDefault();
-
-		if ( npcSpawner == null )
-			return;
 	}
 
 	public override void DoPlayerSuicide( Client cl )
@@ -86,10 +65,15 @@ public partial class TDGame : Sandbox.Game
 
 			if ( CurWave > 3 )
 				player.lateJoiner = true;
-		}
 
-		if (castle == null)
-			SpawnCastle();
+			if(GameType == GamemodeType.Competitive)
+			{
+				if(Rand.Int(1, 2) == 1)
+					player.JoinTeam( TDPlayer.Teams.Red );
+				else
+					player.JoinTeam( TDPlayer.Teams.Blue );
+			}
+		}
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )

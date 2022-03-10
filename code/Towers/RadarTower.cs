@@ -13,9 +13,9 @@ public partial class RadarTower : TowerBase
 
 	public List<TowerBase> OldTowers;
 	public override string[] UpgradeDesc => new[] { 
-		"Nearby towers get 1+ DMG, +25 Range",
-		"Nearby towers get 2+ DMG, +25 Range",
-		"Nearby towers get 3+ DMG, +25 Range",
+		"Nearby towers get +1 DMG, +25 Range",
+		"Nearby towers get +2 DMG, +25 Range",
+		"Nearby towers get +3 DMG, +25 Range",
 		"MAX LEVEL REACHED"
 	};
 

@@ -36,7 +36,7 @@ public partial class TDNPCBase : AnimEntity
 
 	Vector3 LookDir;
 
-	private Entity targetCastle;
+	public Entity TargetCastle;
 
 	NPCNavigation Path = new NPCNavigation();
 	public NPCSteering Steer;
@@ -46,7 +46,7 @@ public partial class TDNPCBase : AnimEntity
 		SetModel( BaseModel );
 
 		Scale = NPCScale;
-		Health = BaseHealth;
+		Health = BaseHealth * TDGame.Current.Difficulty;
 
 		EnableHitboxes = true;
 
@@ -62,12 +62,17 @@ public partial class TDNPCBase : AnimEntity
 	public void Despawn()
 	{
 		DamageInfo dmgInfo = new DamageInfo();
-		dmgInfo.Damage = CastleDamage;
+		dmgInfo.Damage = CastleDamage * TDGame.Current.Difficulty;
 
-		targetCastle.TakeDamage( dmgInfo );
+		if(TDGame.Current.GameType == TDGame.GamemodeType.Competitive)
+		{
 
-		if ( targetCastle.Health <= 0 )
-			targetCastle = null;
+		}
+
+		TargetCastle.TakeDamage( dmgInfo );
+
+		if ( TargetCastle.Health <= 0 )
+			TargetCastle.OnKilled();
 
 		Event.Run( "td_npckilled", this );
 		EnableDrawing = false;
@@ -99,14 +104,14 @@ public partial class TDNPCBase : AnimEntity
 
 			if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
 			{
-				if ( targetCastle == null )
+				if ( TargetCastle == null )
 				{
 					foreach ( var ent in All )
 						if ( ent is Castle )
-							targetCastle = ent;
+							TargetCastle = ent;
 				}
 
-				Steer.Target = targetCastle.Position;
+				Steer.Target = TargetCastle.Position;
 			}
 
 			if( td_npc_drawoverlay )

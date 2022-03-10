@@ -17,6 +17,14 @@ public class HostileSpawner : Entity
 
 	public List<TDNPCBase> aliveNPCs;
 
+	[Property( "CompetitiveSpawner" )]
+	public bool Is_Competitive_Spawner { get; set; } = false;
+
+	[Property( "CastleToFind" ), Description( "Which side in competitive or cooperative should find the castle (must be red_castle or blue_castle)" )]
+	public string Castle_Target { get; set; }
+
+	private CastleEntity castleTarget;
+
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -28,6 +36,11 @@ public class HostileSpawner : Entity
 		{
 			if ( logicEnt is WaveSetup waveSetter )
 				WaveSetters.Add( waveSetter );
+
+			if ( logicEnt is CastleEntity castle && castle.Name.Contains(Castle_Target) )
+			{
+				castleTarget = castle;
+			}
 		}
 	}
 
@@ -36,6 +49,11 @@ public class HostileSpawner : Entity
 	{
 		if ( TDGame.Current.CurWaveStatus != TDGame.WaveStatus.Active )
 			return;
+
+		if ( TDGame.Current.GameType == TDGame.GamemodeType.Cooperative && Is_Competitive_Spawner )
+		{
+			return;
+		}
 
 		foreach ( var multi in MultiNPCs )
 		{
@@ -52,6 +70,8 @@ public class HostileSpawner : Entity
 					aliveNPCs.Add( newNPC );
 					multi.Spawn_Count--;
 					timeLastSpawn = 0;
+
+					newNPC.TargetCastle = castleTarget;
 				}
 			}
 		}

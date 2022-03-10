@@ -5,7 +5,7 @@ using System.Linq;
 public partial class Hidden : TDNPCBase
 {
 	public override string NPCName => "Hidden";
-	public override int BaseHealth => 15;
+	public override int BaseHealth => 35;
 	public override float BaseSpeed => 30;
 	public override string BaseModel => "models/citizen/citizen.vmdl";
 	public override int minCash => 7;

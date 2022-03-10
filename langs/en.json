@@ -2,7 +2,7 @@
  "Stat_Coins": "Coins: ",
  "Tower_Level": "Level: ",
  "Current_Wave": "Wave: ",
- "Timer_Game": "Starting game in ",
+ "Timer_Game": "Host has selected {game}, Starting game in {0}",
  "Timer_Wave": "Wave starting in ",
  "Game_Finished": "Game Over!",
 
