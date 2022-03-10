@@ -46,7 +46,7 @@ public partial class TDNPCBase : AnimEntity
 		SetModel( BaseModel );
 
 		Scale = NPCScale;
-		Health = BaseHealth * TDGame.Current.Difficulty;
+		Health = BaseHealth * (TDGame.Current.Difficulty + 1);
 
 		EnableHitboxes = true;
 
@@ -62,12 +62,7 @@ public partial class TDNPCBase : AnimEntity
 	public void Despawn()
 	{
 		DamageInfo dmgInfo = new DamageInfo();
-		dmgInfo.Damage = CastleDamage * TDGame.Current.Difficulty;
-
-		if(TDGame.Current.GameType == TDGame.GamemodeType.Competitive)
-		{
-
-		}
+		dmgInfo.Damage = CastleDamage * (TDGame.Current.Difficulty + 1);
 
 		TargetCastle.TakeDamage( dmgInfo );
 
