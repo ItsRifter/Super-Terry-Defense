@@ -22,21 +22,17 @@ public partial class Timer : Panel
 			if (TDGame.Current.CurGameStatus == TDGame.GameStatus.Idle)
             {
 				if(!Local.Client.IsListenServerHost)
-					timerLbl.SetText( "Waiting for host to set up game" );
-				else
-				{
-					timerLbl.SetText( "Use commands: startcomp or startcoop" );
-				}
+					timerLbl.SetText( Translation.Translate( "Waiting_Host" ) );
 			} 
 			else if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Starting )
 			{
 				if( TDGame.Current.GameType == TDGame.GamemodeType.Cooperative )
 				{
-					timerLbl.SetText( "Host has selected 'Cooperative', starting in " + Math.Round(TDGame.Current.WaveTimer - Time.Now) );
+					timerLbl.SetText( Translation.Translate( "Host_Select_Coop" ) + Math.Round(TDGame.Current.WaveTimer - Time.Now) );
 				}
 				else if( TDGame.Current.GameType == TDGame.GamemodeType.Competitive )
 				{
-					timerLbl.SetText( "Host has selected 'Competitive', starting in " + Math.Round(TDGame.Current.WaveTimer - Time.Now ) );
+					timerLbl.SetText( Translation.Translate( "Host_Select_Comp" ) + Math.Round(TDGame.Current.WaveTimer - Time.Now ) );
 				}
 			}
 

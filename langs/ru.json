@@ -1,55 +1,58 @@
 {
- "Stat_Coins": "Монет: ",
- "Tower_Level": "Уровень: ",
- "Current_Wave": "Волна: ",
- "Timer_Game": "Начинаем игру через ",
- "Timer_Wave": "След. Волна через ",
- "Game_Finished": "Игра Окончена!",
+  "Stat_Coins": "Монет: ",
+  "Tower_Level": "Уровень: ",
+  "Current_Wave": "Волна: ",
+  //Someone translate the 3 lines below!
+  "Waiting_Host": "Ожидание хоста для настройки игры",
+  "Host_Select_Coop": "Хозяин выбрал вариант Совместный, начиная с ",
+  "Host_Select_Comp": "Организатор выбрал Соревновательный старт через ",
+  "Timer_Wave": "След. Волна через ",
+  "Game_Finished": "Игра Окончена!",
 
- //Info on the hotbar
- "Tower_Pistol_Info": "Пистолетная Башня\nСтоит 10 Монет",
- "Tower_SMG_Info": "SMG Tower\nСтоит 25 Монет",
- "Tower_Explosive_Info": "Cannon Tower\nСтоит 40 Монет",
- "Tower_Electric_Info": "Electric Tower\nСтоит 65 Монет",
- "Tower_Radar_Info": "Radar Tower\nСтоит 50 Монет",
- "Tower_Sniper_Info": "Sniper Tower\nСтоит 75 Монет",
- "Tower_Frost_Info": "Frost Tower\nСтоит 45 Монет",
+  //Info on the hotbar
+  "Tower_Pistol_Info": "Пистолетная Башня\nСтоит 10 Монет",
+  "Tower_SMG_Info": "SMG Tower\nСтоит 25 Монет",
+  "Tower_Explosive_Info": "Cannon Tower\nСтоит 40 Монет",
+  "Tower_Electric_Info": "Electric Tower\nСтоит 65 Монет",
+  "Tower_Radar_Info": "Radar Tower\nСтоит 50 Монет",
+  "Tower_Sniper_Info": "Sniper Tower\nСтоит 75 Монет",
+  "Tower_Frost_Info": "Frost Tower\nСтоит 45 Монет",
 
- //Info when hovering on a tower
- //Names
- "Pistol Tower": "Пистолетная Башня",
- "SMG Tower": "Автоматическая Башня",
- "Explosive Tower": "Разрывная Башня",
- "Electric Tower": "Башня-Тесла",
- "Radar Tower": "Башня-Радар",
- "Sniper Tower": "Дальнобойная Башня",
- "Frost Tower": "Ледяная Башня",
+  //Info when hovering on a tower
+  //Names
+  "Pistol Tower": "Пистолетная Башня",
+  "SMG Tower": "Автоматическая Башня",
+  "Explosive Tower": "Разрывная Башня",
+  "Electric Tower": "Башня-Тесла",
+  "Radar Tower": "Башня-Радар",
+  "Sniper Tower": "Дальнобойная Башня",
+  "Frost Tower": "Ледяная Башня",
 
- //Descriptions
- "Pistol Tower Desc": "Довольно простенькая...",
- "SMG Tower Desc": "Автоматическая.",
- "Explosive Tower Desc": "Снаряды взрываются при попадании",
- "Electric Tower Desc": "Башня-Заппер",
- "Radar Tower Desc": "Раскрывает врагов в радиусе всем башням",
- "Sniper Tower Desc": "Стреляет дальше всех",
- "Frost Tower Desc": "Замедляет врагов",
+  //Descriptions
+  "Pistol Tower Desc": "Довольно простенькая...",
+  "SMG Tower Desc": "Автоматическая.",
+  "Explosive Tower Desc": "Снаряды взрываются при попадании",
+  "Electric Tower Desc": "Башня-Заппер",
+  "Radar Tower Desc": "Раскрывает врагов в радиусе всем башням",
+  "Sniper Tower Desc": "Стреляет дальше всех",
+  "Frost Tower Desc": "Замедляет врагов",
 
- //Misc
- "Info_OnUpgrade": "При улучшении",
- "Info_DMG": "Урон: ",
- "Info_Cooldown": " | Перезарядка: ",
- "Info_Range": " | Дальность: ",
- "Info_Upgrade": "Улучшает выбранную башню",
- "Info_Sell": "Продаёт выбранную башню",
+  //Misc
+  "Info_OnUpgrade": "При улучшении",
+  "Info_DMG": "Урон: ",
+  "Info_Cooldown": " | Перезарядка: ",
+  "Info_Range": " | Дальность: ",
+  "Info_Upgrade": "Улучшает выбранную башню",
+  "Info_Sell": "Продаёт выбранную башню",
 
- //NPCs
- "Peasant": "Крестьянин\nХП: ",
- "Hidden": "Скрытный\nХП: ",
- "Zombie": "Зомби\nХП: ",
- "Rebel": "Повстанец\nХП: ",
- "Rioter": "Мятежник\nХП: ",
- "Voidling": "Войдлинг\nХП: ",
- "Brute": "Зверь\nХП: ",
- "ZombieBoss": "Босс Зомби\n ХП: ",
- "VoidKing": "Void King\n ХП: "
+  //NPCs
+  "Peasant": "Крестьянин\nХП: ",
+  "Hidden": "Скрытный\nХП: ",
+  "Zombie": "Зомби\nХП: ",
+  "Rebel": "Повстанец\nХП: ",
+  "Rioter": "Мятежник\nХП: ",
+  "Voidling": "Войдлинг\nХП: ",
+  "Brute": "Зверь\nХП: ",
+  "ZombieBoss": "Босс Зомби\n ХП: ",
+  "VoidKing": "Void King\n ХП: "
 }

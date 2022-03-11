@@ -1,55 +1,57 @@
 {
- "Stat_Coins": "Coins: ",
- "Tower_Level": "Level: ",
- "Current_Wave": "Wave: ",
- "Timer_Game": "",
- "Timer_Wave": "Wave starting in ",
- "Game_Finished": "Game Over!",
+  "Stat_Coins": "Coins: ",
+  "Tower_Level": "Level: ",
+  "Current_Wave": "Wave: ",
+  "Waiting_Host": "Waiting for host to set up game",
+  "Host_Select_Coop": "Host has selected 'Cooperative' starting in ",
+  "Host_Select_Comp": "Host has selected 'Competitive' starting in ",
+  "Timer_Wave": "Wave starting in ",
+  "Game_Finished": "Game Over!",
 
- //Info on the hotbar
- "Tower_Pistol_Info": "Pistol Tower\nCosts 10 Coins",
- "Tower_SMG_Info": "SMG Tower\nCosts 25 Coins",
- "Tower_Explosive_Info": "Cannon Tower\nCosts 40 Coins",
- "Tower_Electric_Info": "Electric Tower\nCosts 65 Coins",
- "Tower_Radar_Info": "Radar Tower\nCosts 50 Coins",
- "Tower_Sniper_Info": "Sniper Tower\nCosts 75 Coins",
- "Tower_Frost_Info": "Frost Tower\nCosts 45 Coins",
+  //Info on the hotbar
+  "Tower_Pistol_Info": "Pistol Tower\nCosts 10 Coins",
+  "Tower_SMG_Info": "SMG Tower\nCosts 25 Coins",
+  "Tower_Explosive_Info": "Cannon Tower\nCosts 40 Coins",
+  "Tower_Electric_Info": "Electric Tower\nCosts 65 Coins",
+  "Tower_Radar_Info": "Radar Tower\nCosts 50 Coins",
+  "Tower_Sniper_Info": "Sniper Tower\nCosts 75 Coins",
+  "Tower_Frost_Info": "Frost Tower\nCosts 45 Coins",
 
- //Info when hovering on a tower
- //Names
- "Pistol Tower": "Pistol Tower",
- "SMG Tower": "SMG Tower",
- "Explosive Tower": "Explosive Tower",
- "Electric Tower": "Electric Tower",
- "Radar Tower": "Radar Tower",
- "Sniper Tower": "Sniper Tower",
- "Frost Tower": "Frost Tower",
+  //Info when hovering on a tower
+  //Names
+  "Pistol Tower": "Pistol Tower",
+  "SMG Tower": "SMG Tower",
+  "Explosive Tower": "Explosive Tower",
+  "Electric Tower": "Electric Tower",
+  "Radar Tower": "Radar Tower",
+  "Sniper Tower": "Sniper Tower",
+  "Frost Tower": "Frost Tower",
 
- //Descriptions
- "Pistol Tower Desc": "A simple shooting tower",
- "SMG Tower Desc": "An automatic shooting tower",
- "Explosive Tower Desc": "A tower that fires cannons",
- "Electric Tower Desc": "An electrifying tower",
- "Radar Tower Desc": "A radar tower that enhances towers and reveal cloaked hostiles",
- "Sniper Tower Desc": "A long ranged tower",
- "Frost Tower Desc": "A tower that slows targets",
+  //Descriptions
+  "Pistol Tower Desc": "A simple shooting tower",
+  "SMG Tower Desc": "An automatic shooting tower",
+  "Explosive Tower Desc": "A tower that fires cannons",
+  "Electric Tower Desc": "An electrifying tower",
+  "Radar Tower Desc": "A radar tower that enhances towers and reveal cloaked hostiles",
+  "Sniper Tower Desc": "A long ranged tower",
+  "Frost Tower Desc": "A tower that slows targets",
 
- //Misc
- "Info_OnUpgrade": "On Upgrade",
- "Info_DMG": "Damage: ",
- "Info_Cooldown": " | Cooldown: ",
- "Info_Range": " | Range: ",
- "Info_Upgrade": "Upgrades target tower",
- "Info_Sell": "Sells target tower",
+  //Misc
+  "Info_OnUpgrade": "On Upgrade",
+  "Info_DMG": "Damage: ",
+  "Info_Cooldown": " | Cooldown: ",
+  "Info_Range": " | Range: ",
+  "Info_Upgrade": "Upgrades target tower",
+  "Info_Sell": "Sells target tower",
 
- //NPCs
- "Peasant": "Peasant\nHP: ",
- "Hidden": "Hidden\nHP: ",
- "Zombie": "Zombie\nHP: ",
- "Rebel": "Rebel\nHP: ",
- "Rioter": "Rioter\nHP: ",
- "Voidling": "Voidling\nHP: ",
- "Brute": "Brute\nHP: ",
- "Zombie Boss": "Zombie Boss\n HP: ",
- "Void King": "Void King\n HP: "
+  //NPCs
+  "Peasant": "Peasant\nHP: ",
+  "Hidden": "Hidden\nHP: ",
+  "Zombie": "Zombie\nHP: ",
+  "Rebel": "Rebel\nHP: ",
+  "Rioter": "Rioter\nHP: ",
+  "Voidling": "Voidling\nHP: ",
+  "Brute": "Brute\nHP: ",
+  "Zombie Boss": "Zombie Boss\n HP: ",
+  "Void King": "Void King\n HP: "
 }

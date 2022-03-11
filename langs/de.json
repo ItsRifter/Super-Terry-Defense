@@ -1,55 +1,57 @@
 {
- "Stat_Coins": "Münzen: ",
- "Tower_Level": "Level: ",
- "Current_Wave": "Welle: ",
- "Timer_Game": "Spiel startet in ",
- "Timer_Wave": "Welle startet in " ,
- "Game_Finished": "Game Over!",
+  "Stat_Coins": "Münzen: ",
+  "Tower_Level": "Level: ",
+  "Current_Wave": "Welle: ",
+  "Waiting_Host": "Host nimmt Spieleinstellung vor",
+  "Host_Select_Coop": "Host hat 'kooperativ' ausgewählt, startet in ",
+  "Host_Select_Comp": "Host hat 'kompetitiv'ausgewählt, startet in ",
+  "Timer_Wave": "Welle startet in ",
+  "Game_Finished": "Game Over!",
 
- //Info on the hotbar
- "Tower_Pistol_Info": "Pistolenturm\nKostet 10 Münzen",
- "Tower_SMG_Info": "SMG-Turm\nKostet 25 Münzen",
- "Tower_Explosive_Info": "Kanonenturm\nKosten 40 Münzen",
- "Tower_Electric_Info": "Elektrischer Turm\nKosten 65 Münzen",
- "Tower_Radar_Info": "Radarturm\nKostet 50 Münzen",
- "Tower_Sniper_Info": "Scharfschützenturm\nKosten 75 Münzen",
- "Tower_Frost_Info": "Frostturm\nKosten 45 Münzen",
+  //Info on the hotbar
+  "Tower_Pistol_Info": "Pistolenturm\nKostet 10 Münzen",
+  "Tower_SMG_Info": "SMG-Turm\nKostet 25 Münzen",
+  "Tower_Explosive_Info": "Kanonenturm\nKosten 40 Münzen",
+  "Tower_Electric_Info": "Elektrischer Turm\nKosten 65 Münzen",
+  "Tower_Radar_Info": "Radarturm\nKostet 50 Münzen",
+  "Tower_Sniper_Info": "Scharfschützenturm\nKosten 75 Münzen",
+  "Tower_Frost_Info": "Frostturm\nKosten 45 Münzen",
 
- //Info when hovering on a tower
- //Names
- "Pistol Tower": "Pistolenturm",
- "SMG Tower": "SMG-Turm",
- "Explosive Tower": "Kanonenturm",
- "Electric Tower": "Elektrischer Turm",
- "Radar Tower": "Radarturm",
- "Sniper Tower": "Scharfschützenturm",
- "Frost Tower": "Frostturm",
+  //Info when hovering on a tower
+  //Names
+  "Pistol Tower": "Pistolenturm",
+  "SMG Tower": "SMG-Turm",
+  "Explosive Tower": "Kanonenturm",
+  "Electric Tower": "Elektrischer Turm",
+  "Radar Tower": "Radarturm",
+  "Sniper Tower": "Scharfschützenturm",
+  "Frost Tower": "Frostturm",
 
- //Descriptions
- "Pistol Tower Desc": "Ein einfacher Schützenturm",
- "SMG Tower Desc": "Ein automatischer Schützenturm",
- "Explosive Tower Desc": "Ein Turm, welcher Kanonen feuert",
- "Electric Tower Desc": "Ein elektrifizierender Turm",
- "Radar Tower Desc": "Ein Radarturm, welcher Türme aufwertet und getarnte Feinde aufdeckt",
- "Sniper Tower Desc": "Ein Turm mit großer Reichweite",
- "Frost Tower Desc": "Ein Turm, welcher Gegner verlangsamt",
+  //Descriptions
+  "Pistol Tower Desc": "Ein einfacher Schützenturm",
+  "SMG Tower Desc": "Ein automatischer Schützenturm",
+  "Explosive Tower Desc": "Ein Turm, welcher Kanonen feuert",
+  "Electric Tower Desc": "Ein elektrifizierender Turm",
+  "Radar Tower Desc": "Ein Radarturm, welcher Türme aufwertet und getarnte Feinde aufdeckt",
+  "Sniper Tower Desc": "Ein Turm mit großer Reichweite",
+  "Frost Tower Desc": "Ein Turm, welcher Gegner verlangsamt",
 
- //Misc
- "Info_OnUpgrade": "Bei Aufrüstung",
- "Info_DMG": "Schaden: ",
- "Info_Cooldown": " | Abkühlzeit: ",
- "Info_Range": " | Reichweite: ",
- "Info_Upgrade": "Verbessert den Zielturm",
- "Info_Sell": "Verkauft Zielturm",
+  //Misc
+  "Info_OnUpgrade": "Bei Aufrüstung",
+  "Info_DMG": "Schaden: ",
+  "Info_Cooldown": " | Abkühlzeit: ",
+  "Info_Range": " | Reichweite: ",
+  "Info_Upgrade": "Verbessert den Zielturm",
+  "Info_Sell": "Verkauft Zielturm",
 
- //NPCs
- "Peasant": "Bauer\nHP: ",
- "Hidden": "Verborgener\nHP: ",
- "Zombie": "Zombie\nHP: ",
- "Rebel": "Rebell\nHP: ",
- "Rioter": "Randalierer\nHP: ",
- "Voidling": "Voidling\nHP: ",
- "Brute": "Wüstling\nHP: ",
- "Zombie Boss": "Zombie-Boss\n HP: ",
- "Void King": "Void-König\n HP: "
+  //NPCs
+  "Peasant": "Bauer\nHP: ",
+  "Hidden": "Verborgener\nHP: ",
+  "Zombie": "Zombie\nHP: ",
+  "Rebel": "Rebell\nHP: ",
+  "Rioter": "Randalierer\nHP: ",
+  "Voidling": "Voidling\nHP: ",
+  "Brute": "Wüstling\nHP: ",
+  "Zombie Boss": "Zombie-Boss\n HP: ",
+  "Void King": "Void-König\n HP: "
 }

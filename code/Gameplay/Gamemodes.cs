@@ -13,44 +13,36 @@ public partial class TDGame
 	[Net, Predicted]
 	public GamemodeType GameType { get; private set; }
 
-	[AdminCmd( "startcomp" )]
-	public static void HostSelectComp()
+	[ServerCmd( "td_start_gametype" )]
+	public static void HostSelectComp(GamemodeType gameType)
 	{
-		Event.Run( "td_evnt_comp" );
+		Event.Run( "td_evnt_play", gameType );
 	}
 
-	[AdminCmd( "startcoop" )]
-	public static void HostSelectCoop()
-	{
-		Event.Run( "td_evnt_coop" );
-	}
-
-	[Event( "td_evnt_coop" )]
-	public void PlayCoop()
+	[Event( "td_evnt_play" )]
+	public void PlayCoop(GamemodeType gameType)
 	{
 		if ( CurGameStatus != GameStatus.Idle )
 			return;
 
-		GameType = GamemodeType.Cooperative;
-		CurGameStatus = GameStatus.Starting;
-		WaveTimer = 10.0f + Time.Now;
-	}
-
-	[Event( "td_evnt_comp" )]
-	public void PlayComp()
-	{
-		if ( CurGameStatus != GameStatus.Idle )
-			return;
-
-		if ( !CanPlayCompetitive() )
+		if(gameType == GamemodeType.Competitive)
 		{
-			Log.Info( "Can't play competitive with just yourself" );
-			return;
-		}
+			if ( !CanPlayCompetitive() )
+			{
+				Log.Error( "Can't play competitive with just yourself" );
+				return;
+			}
 
-		GameType = GamemodeType.Competitive;
-		CurGameStatus = GameStatus.Starting;
-		WaveTimer = 10.0f + Time.Now;
+			GameType = GamemodeType.Competitive;
+			CurGameStatus = GameStatus.Starting;
+			WaveTimer = 10.0f + Time.Now;
+		} 
+		else if (gameType == GamemodeType.Cooperative)
+		{
+			GameType = GamemodeType.Cooperative;
+			CurGameStatus = GameStatus.Starting;
+			WaveTimer = 10.0f + Time.Now;
+		}
 	}
 
 	[AdminCmd( "Test" )]

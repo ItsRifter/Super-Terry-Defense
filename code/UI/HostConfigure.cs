@@ -23,8 +23,7 @@ public partial class HostConfigure : Panel
 
 		CompPnl.AddEventListener( "onclick", () =>
 		{
-			ConsoleSystem.Run( "Test" );
-			Event.Run( "td_setgame_comp" );
+			SetGameType(TDGame.GamemodeType.Competitive);
 		} );
 
 		CoopPnl = HostPnl.Add.Panel( "coopPnl" );
@@ -33,8 +32,13 @@ public partial class HostConfigure : Panel
 
 		CoopPnl.AddEventListener( "onclick", () =>
 		{
-			Event.Run( "td_setgame_coop" );
+			SetGameType( TDGame.GamemodeType.Cooperative );
 		} );
+	}
+
+	public void SetGameType(TDGame.GamemodeType gameType)
+	{
+		ConsoleSystem.Run( "td_start_gametype", gameType );
 	}
 
 	public override void Tick()
