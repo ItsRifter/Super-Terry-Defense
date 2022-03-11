@@ -100,19 +100,14 @@ public partial class TDNPCBase : AnimEntity
 
 			if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Active )
 			{
-				if ( TargetCastle == null )
-				{
-					foreach ( var ent in All )
-						if ( ent is Castle target )
-						{
-							if( target.Name == "blue_castle" && OnBlueSide)
-								TargetCastle = target;
-							else if (target.Name == "red_castle" && !OnBlueSide)
-								TargetCastle = target;
-						}
-				}
-
-				Steer.Target = TargetCastle.Position;
+				foreach ( var ent in All )
+					if ( ent is Castle target )
+					{
+						if( target.TeamCastle == Castle.CastleTeam.Blue && OnBlueSide )
+							Steer.Target = target.Position;
+						else if ( target.TeamCastle == Castle.CastleTeam.Red && !OnBlueSide)
+							Steer.Target = target.Position;
+					}
 			}
 
 			if( td_npc_drawoverlay )

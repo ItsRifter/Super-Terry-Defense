@@ -12,6 +12,15 @@ public partial class Castle : TowerBase
 	public override int MaxTier => 0;
 
 	public int CastleHealth = 100;
+
+	public enum CastleTeam
+	{
+		Unknown,
+		Blue,
+		Red
+	}
+
+	public CastleTeam TeamCastle { get; set; } = CastleTeam.Unknown;
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -27,9 +36,9 @@ public partial class Castle : TowerBase
 	{
 		if ( TDGame.Current.GameType == TDGame.GamemodeType.Competitive )
 		{
-			if ( Name == "blue_castle" )
+			if ( Name == "blue_castle" || TeamCastle == CastleTeam.Blue )
 				TDGame.Current.AnnounceWinningTeam( "Red" );
-			else if ( Name == "red_castle" )
+			else if ( Name == "red_castle" || TeamCastle == CastleTeam.Red )
 				TDGame.Current.AnnounceWinningTeam( "Blue" );
 		}
 		else

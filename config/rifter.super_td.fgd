@@ -25,7 +25,12 @@ metadata
 }
 = info_supertd_castle : ""
 [
-	bluespawn(boolean) : "Is Blue Castle" : 1 : ""
+	castleteam(choices) : "Team Castle" : 0 : "Which team does this castle belong to" =
+	[
+		0 : "Unknown"
+		1 : "Blue"
+		2 : "Red"
+	]
 ]
 
 //
@@ -76,7 +81,6 @@ metadata
 = info_supertd_npc_spawner : ""
 [
 	competitivespawner(boolean) : "Is Competitive Spawner" : 0 : ""
-	castletofind(string) : "Castle Target" :  : "Which side in competitive or cooperative should find the castle (must be red_castle or blue_castle)"
 ]
 
 //

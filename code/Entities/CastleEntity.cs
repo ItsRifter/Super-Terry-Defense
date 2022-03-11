@@ -6,21 +6,27 @@
 
 public class CastleEntity : Entity
 {
-	[Property( "BlueSpawn" )]
-	public bool Is_Blue_Castle { get; set; } = true;
+	public enum CastleTeam
+	{
+		Unknown,
+		Blue,
+		Red
+	}
+
+	[Property( "CastleTeam" ), Description("Which team does this castle belong to")]
+	public CastleTeam TeamCastle { get; set; } = CastleTeam.Unknown;
 
 	public override void Spawn()
 	{
 		base.Spawn();
 
+		var newCastle = new Castle();
+		newCastle.Position = Position;
+		newCastle.Rotation = Rotation;
 
-		var Castle = new Castle();
-		Castle.Position = Position;
-		Castle.Rotation = Rotation;
-
-		if ( Is_Blue_Castle )
-			Castle.Name = "blue_castle";
-		else
-			Castle.Name = "red_castle";
+		if ( TeamCastle == CastleTeam.Blue )
+			newCastle.TeamCastle = Castle.CastleTeam.Blue;
+		else if ( TeamCastle == CastleTeam.Red )
+			newCastle.TeamCastle = Castle.CastleTeam.Red;
 	}
 }

@@ -20,9 +20,6 @@ public class HostileSpawner : Entity
 	[Property( "CompetitiveSpawner" )]
 	public bool Is_Competitive_Spawner { get; set; } = false;
 
-	[Property( "CastleToFind" ), Description( "Which side in competitive or cooperative should find the castle (must be red_castle or blue_castle)" )]
-	public string Castle_Target { get; set; }
-
 	public override void Spawn()
 	{
 		base.Spawn();
@@ -64,7 +61,7 @@ public class HostileSpawner : Entity
 					multi.Spawn_Count--;
 					timeLastSpawn = 0;
 
-					if ( Castle_Target == "red_castle" )
+					if ( Is_Competitive_Spawner )
 						newNPC.OnBlueSide = false;
 				}
 			}
