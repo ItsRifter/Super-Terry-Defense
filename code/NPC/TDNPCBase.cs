@@ -107,6 +107,8 @@ public partial class TDNPCBase : AnimEntity
 							Steer.Target = target.Position;
 						else if ( target.TeamCastle == Castle.CastleTeam.Red && !OnBlueSide)
 							Steer.Target = target.Position;
+
+						TargetCastle = target;
 					}
 			}
 
