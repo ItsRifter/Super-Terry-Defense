@@ -146,10 +146,11 @@ public partial class TDGame
 	[ClientRpc]
 	public void PlayMusicClient(string soundtrack)
 	{
+		soundPlaying.Stop();
+
 		if ( ConsoleSystem.GetValue( "td_music" ) == "False" )
 			return;
 
-		soundPlaying.Stop();
 		soundPlaying = Sound.FromScreen( soundtrack );
 	}
 

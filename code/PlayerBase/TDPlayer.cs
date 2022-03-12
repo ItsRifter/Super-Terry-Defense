@@ -15,6 +15,9 @@ partial class TDPlayer : Player
 	private bool inUpgradeMode;
 	private bool inSellMode;
 
+	[ConVar.ClientData( "td_music" )]
+	public bool Music { get; set; } = true;
+
 	public enum Teams
 	{
 		Unspecified,
@@ -34,6 +37,25 @@ partial class TDPlayer : Player
 		Clothing.LoadFromClient( cl );
 	}
 
+	[ClientCmd("td_togglemusic")]
+	public static void UpdateMusicCMD()
+	{
+		Event.Run( "td_updatemusic" );
+	}
+
+	[Event("td_updatemusic")]
+	public void UpdateMusic()
+	{
+		Music = !Music;
+
+		if ( !Music )
+			Log.Info( "Music off" );
+		else
+			Log.Info( "Music on" );
+
+		ConsoleSystem.SetValue( "td_music", Music );
+	}
+
 	public override void Spawn()
 	{
 		base.Respawn();
@@ -43,7 +65,7 @@ partial class TDPlayer : Player
 		SetModel( "models/citizen/citizen.vmdl" );
 
 		ConsoleSystem.SetValue( "td_currentlanguage", "EN" );
-		ConsoleSystem.SetValue( "td_music", true );
+		ConsoleSystem.SetValue( "td_music", Music ); 
 
 		Controller = new WalkController();
 		Animator = new StandardPlayerAnimator();
