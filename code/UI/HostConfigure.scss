@@ -27,20 +27,26 @@
             right: 0%;
             background-color: rgb(50, 50, 160);
             opacity: 0.25;
+            transition: opacity 0.5s ease-out, width 0.5s ease-out;
 
             &:hover {
                 opacity: 1;
-                transition: all 1s ease-out;
                 right: 0%;
                 width: 75%;
+
+                .coopText {
+                    color: white;
+                }
             }
+
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+
 
             .coopText {
                 text-align: center;
                 width: 100%;
-                top: 40%;
-                justify-content: center;
-                align-content: center;
                 font-size: 64px;
                 color: blue;
             }
@@ -49,23 +55,27 @@
         .compPnl {
             width: 50%;
             height: 100%;
-            left: -30%;
             background-color: rgb(160, 50, 50);
             opacity: 0.25;
+            transition: opacity 0.5s ease-out, width 0.5s ease-out;
 
             &:hover {
                 opacity: 1;
-                transition: all 0.5s ease-out;
-                width: 80%;
-                left: -26.5%;
+                width: 75%;
+
+                .compText {
+                    color: white;
+                }
             }
+
+            flex-direction: column;
+            justify-content: center;
+            align-content: center;
+
 
             .compText {
                 text-align: center;
                 width: 100%;
-                top: 40%;
-                justify-content: center;
-                align-content: center;
                 font-size: 64px;
                 color: red;
             }
@@ -73,12 +83,12 @@
 
         .titleText {
             text-align: center;
-            left: 35%;
+            //left: 35%;
             font-size: 48px;
             color: white;
             text-align: center;
+
             .selectText {
-                
                 top: 50px;
                 left: -21.5%;
                 font-size: 32px;
