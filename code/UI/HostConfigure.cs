@@ -12,23 +12,28 @@ public partial class HostConfigure : Panel
 	public HostConfigure()
 	{
 		StyleSheet.Load( "UI/HostConfigure.scss" );
-
-		HostPnl = Add.Panel("menu");
-		Label hostTitle = HostPnl.Add.Label("Host Setup", "titleText");
-		Label hostModes = hostTitle.Add.Label( "Select Gamemode", "selectText" );
+		
+		HostPnl = Add.Panel( "menu" );
 
 		CompPnl = HostPnl.Add.Panel( "compPnl" );
 
-		Panel compLbl = CompPnl.Add.Label( "Competitive", "compText" );
+		CompPnl.Add.Label( "Competitive", "compText" );
 
 		CompPnl.AddEventListener( "onclick", () =>
 		{
-			SetGameType(TDGame.GamemodeType.Competitive);
+			SetGameType( TDGame.GamemodeType.Competitive );
 		} );
+
+		//
+
+		Label hostTitle = HostPnl.Add.Label("Host Setup", "titleText");
+		hostTitle.Add.Label( "Select Gamemode", "selectText" );
+
+		//
 
 		CoopPnl = HostPnl.Add.Panel( "coopPnl" );
 
-		Panel coopLbl = CoopPnl.Add.Label( "Cooperative", "coopText" );
+		CoopPnl.Add.Label( "Cooperative", "coopText" );
 
 		CoopPnl.AddEventListener( "onclick", () =>
 		{
