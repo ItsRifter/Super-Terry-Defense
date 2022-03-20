@@ -85,8 +85,7 @@ public partial class TowerBase : AnimEntity
 	[Event.Tick.Server]
 	public virtual void SimulateTower()
 	{
-
-		if( target.IsValid() && target.Position.Length >= AttackRange)
+		if( target.IsValid() && Position.Distance(target.Position) <= AttackRange)
 		{
 			if ( target.NPCType == TDNPCBase.SpecialType.Cloaked && !CanSeeCloaked )
 				return;

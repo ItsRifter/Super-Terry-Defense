@@ -75,7 +75,7 @@ public class HostileSpawner : Entity
 
 		for ( int i = 0; i < WaveSetters.Count; i++ )
 		{
-			if( WaveSetters[i].Wave_Order == TDGame.Current.CurWave )
+			if( WaveSetters[i].Wave_Order == TDGame.Current.GetCurrentWave() )
 			{
 				MultiNPCs.Add( WaveSetters[i] );
 			}

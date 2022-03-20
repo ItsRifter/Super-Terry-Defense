@@ -26,7 +26,7 @@ public partial class SMGTower : TowerBase
 
 		AttackRange = 65;
 		AttackDamage = 3;
-		AttackCooldown = 1.5f;
+		AttackCooldown = 2.5f;
 	}
 
 	public override void OnUpgrade()

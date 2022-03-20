@@ -76,12 +76,6 @@ public partial class TDGame
 
 	}
 
-	public void NewGamePlus()
-	{
-		CurWave = 0;
-		Difficulty += 1;
-	}
-
 	public void AnnounceWinningTeam(string WinningTeam)
 	{
 		CurGameStatus = GameStatus.Post;

@@ -27,7 +27,7 @@ public partial class FrostTower : TowerBase
 
 		AttackRange = 75;
 		AttackDamage = 5;
-		AttackCooldown = 6.50f;
+		AttackCooldown = 6.0f;
 	}
 
 	public override void AttackNPC( TDNPCBase npc )

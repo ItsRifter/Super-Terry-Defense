@@ -8,7 +8,7 @@ public partial class TDPlayer
 
 	public void InitStats()
 	{
-		CurMoney = 20 + (20 * TDGame.Current.Difficulty);
+		CurMoney = 20 + (20 * TDGame.Current.GetDifficulty());
 	}
 
 	[Event("td_evnt_givemoney")]

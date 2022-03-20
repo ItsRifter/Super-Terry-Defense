@@ -153,13 +153,19 @@ partial class TDPlayer : Player
 
 		SelectingTowers();
 
-		if ( !inSellMode && !inUpgradeMode )
-			return;
-
 		var targetTr = Trace.Ray( EyePosition, EyePosition + EyeRotation.Forward * 150 )
 			.Ignore( this )
 			.Size( 2 )
 			.Run();
+
+		if( targetTr.Entity is TowerBase towerRadius )
+		{
+			if(towerRadius.Owner == this)
+				DebugOverlay.Sphere( towerRadius.Position, towerRadius.AttackRange, Color.Green );
+		}
+
+		if ( !inSellMode && !inUpgradeMode )
+			return;
 
 		if (inSellMode)
 		{
@@ -175,7 +181,7 @@ partial class TDPlayer : Player
 			{
 				if ( Input.Pressed( InputButton.Attack1 ) )
 				{
-					if ( tower.CanUpgrade( this ) )
+					if ( tower.CanUpgrade( this ) && tower.Owner == this)
 						tower.UpgradeTower( this );
 				}
 

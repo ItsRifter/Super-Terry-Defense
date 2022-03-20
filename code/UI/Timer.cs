@@ -45,7 +45,7 @@ public partial class Timer : Panel
 				if ( TDGame.Current.CurWaveStatus == TDGame.WaveStatus.Waiting )
 					timerLbl.SetText( Translation.Translate( "Timer_Wave" ) + MathF.Round( TDGame.Current.WaveTimer - Time.Now ) );
 				else
-					timerLbl.SetText( Translation.Translate( "Current_Wave" ) + TDGame.Current.CurWave + "/" + TDGame.Current.MaxWave );
+					timerLbl.SetText( Translation.Translate( "Current_Wave" ) + TDGame.Current.GetCurrentWave() + "/" + TDGame.Current.GetMaxWave() );
 			else if ( TDGame.Current.CurGameStatus == TDGame.GameStatus.Post )
 			{
 				timerLbl.SetText( Translation.Translate( "Game_Finished" ) ); 

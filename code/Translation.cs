@@ -20,6 +20,8 @@ public class Translation
 		var langs = FileSystem.Mounted.FindFile( "langs" );
 		foreach ( var lang in langs )
 		{
+			var langFile = lang.Split( "." );
+			if(langFile[1] == "json") continue;
 			AllLangs.Add( lang.Split( '.')[0] );
 		}
 	}

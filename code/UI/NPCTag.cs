@@ -31,7 +31,7 @@ public class NPCTag : Panel
 	Dictionary<TDNPCBase, NPCTagBase> ActiveTags = new Dictionary<TDNPCBase, NPCTagBase>();
 
 	public float MaxDrawDistance = 400;
-	public int MaxTagsToShow = 1;
+	public int MaxTagsToShow = 3;
 
 	public NPCTag()
 	{

@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using Sandbox;
 public partial class TDGame
 {
-	[Net] public int CurWave { get; private set; }
-	[Net] public int MaxWave { get; private set; }
+	[Net] protected int CurWave { get; private set; }
+	[Net] protected int MaxWave { get; private set; }
 	[Net] public float WaveTimer { get; private set; }
-	[Net] public int Difficulty { get; private set; }
+	[Net] protected int Difficulty { get; private set; }
 
 	private string curSoundtrack;
 
@@ -32,6 +32,20 @@ public partial class TDGame
 	public GameStatus CurGameStatus { get; private set; }
 
 	[Net, Predicted] public WaveStatus CurWaveStatus { get; private set; }
+
+	public int GetCurrentWave()
+	{
+		return CurWave;
+	}
+
+	public int GetMaxWave()
+	{
+		return MaxWave;
+	}
+	public int GetDifficulty()
+	{
+		return Difficulty;
+	}
 
 	public void InitGameplay()
 	{
@@ -160,7 +174,9 @@ public partial class TDGame
 			EndGame( true );
 		else if ( CurWave >= MaxWave && GameType == GamemodeType.Competitive )
 		{
-			NewGamePlus();
+			CurWave = 0;
+			Difficulty += 1;
+
 			WaveTimer = 20.0f + Time.Now;
 			CurWaveStatus = WaveStatus.Waiting;
 			PlayMusicClient( To.Everyone, curSoundtrack + "_end" );
@@ -206,7 +222,7 @@ public partial class TDGame
 		if ( IsServer )
 			foreach ( var client in Client.All)
 			{
-				if ( client.Pawn is TDPlayer player && player.lateJoiner && !client.IsBot )
+				if ( client.Pawn is TDPlayer player && player.lateJoiner && client.IsBot )
 					break;
 
 				GameServices.SubmitScore( client.PlayerId, CurWave );
