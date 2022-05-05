@@ -12,5 +12,15 @@
   ],
   "HasCode": true,
   "CodePath": "/code/",
-  "RootNamespace": "Sandbox"
+  "RootNamespace": "Sandbox",
+  "Metadata": {
+    "MinPlayers": 1,
+    "MaxPlayers": 4,
+    "MapList": [
+      "rifter.td_office",
+      "baik.td_field",
+      "gmodn.td_aperture"
+    ],
+    "MapSelect": 3
+  }
 }
